@@ -912,6 +912,13 @@ function aboutModal(){
   showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">🌱 About FarmRoot</div><div class="mbody" style="margin-top:12px"><p>FarmRoot is the agriculture community app connecting American farmers to education, funding, and each other.</p><p><strong>Version:</strong> 1.0.0 · <strong>Built by:</strong> Gyening Corp</p><p>📧 <a href="mailto:gyeningcorp@gmail.com" style="color:var(--g)">gyeningcorp@gmail.com</a></p></div><a class="m-link" href="https://gyeningcorp.github.io/farmroot/" target="_blank">Share FarmRoot →</a>`);
 }
 
+// ── SERVICE WORKER ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/farmroot/sw.js', { scope: '/farmroot/' }).catch(() => {});
+  });
+}
+
 // ── TOAST ──
 let toastT;
 function toast(msg){
