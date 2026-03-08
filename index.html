@@ -5,49 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="cache-bust" content="20260307-v3"><meta name="theme-color" content="#1B4332">
+<meta name="theme-color" content="#1B4332">
 <title>FarmRoot – Agriculture Community</title>
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --gd: #1B4332; --g: #2D6A4F; --gm: #40916C; --gl: #52B788; --gp: #D8F3DC;
-  --gold: #F4A261; --sky: #4895EF; --red: #E63946; --purple: #7B2D8B;
-  --bg: #F0F4F0; --card: #FFF; --text: #1a2e1c; --muted: #5c7a5e; --border: #ddeadf;
-  --sh: 0 2px 16px rgba(27,67,50,0.10); --r: 16px; --tabH: 64px;
+:root{
+  --gd:#1B4332;--g:#2D6A4F;--gm:#40916C;--gl:#52B788;--gp:#D8F3DC;
+  --gold:#F4A261;--sky:#4895EF;--red:#E63946;
+  --bg:#F0F4F0;--card:#FFF;--text:#1a2e1c;--muted:#5c7a5e;--border:#ddeadf;
+  --sh:0 2px 16px rgba(27,67,50,0.10);--r:16px;--tabH:64px;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 html,body{height:100%;font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
 button{cursor:pointer;font-family:inherit}
-@media(min-width:520px){body{background:#2D6A4F}.screen{max-width:480px!important;left:50%!important;transform:translateX(-50%)!important;box-shadow:0 0 60px rgba(0,0,0,0.4)!important}.tab-bar{max-width:480px;left:50%;transform:translateX(-50%)}.toast{left:50%}}
+a{text-decoration:none}
+
+/* DESKTOP CENTER */
+@media(min-width:520px){
+  body{background:#2D6A4F}
+  .screen{max-width:480px!important;left:50%!important;transform:translateX(-50%)!important;box-shadow:0 0 60px rgba(0,0,0,0.4)!important}
+  .tab-bar{max-width:480px;left:50%;transform:translateX(-50%)}
+  .toast{left:50%}
+  .modal-ov .modal-box{max-width:480px;margin:0 auto}
+}
+
 .screen{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg)}
 .screen.active{display:flex}
 .panel{display:none}.panel.active{display:block}
-.tab-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.tc{padding-bottom:calc(var(--tabH) + 12px)}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.tc{padding-bottom:calc(var(--tabH) + 16px)}
 
 /* TOP BAR */
 .topbar{background:#fff;padding:13px 16px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;z-index:100}
 .logo{font-size:20px;font-weight:900;color:var(--gd);display:flex;align-items:center;gap:9px}
-.logo-icon{width:34px;height:34px;background:var(--g);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.top-acts{display:flex;gap:8px;align-items:center}
+.logo-i{width:34px;height:34px;background:var(--g);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.top-r{display:flex;gap:8px;align-items:center}
 .tbtn{width:38px;height:38px;border-radius:11px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;font-size:17px;position:relative}
-.ndot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid #fff}
+.ndot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid #fff;display:none}
+.ndot.show{display:block}
 .av{width:34px;height:34px;border-radius:10px;background:var(--g);color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;border:none}
 
 /* TAB BAR */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;height:var(--tabH);background:#fff;display:flex;border-top:1px solid var(--border);z-index:200}
-.tabb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;padding:6px 2px;position:relative}
-.tabb .ti{font-size:21px;transition:transform 0.15s}
+.tabb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;padding:6px 2px}
+.tabb .ti{font-size:22px;transition:transform 0.15s}
 .tabb .tl{font-size:10px;font-weight:600;color:var(--muted)}
 .tabb.active .ti{transform:scale(1.2)}
 .tabb.active .tl{color:var(--g);font-weight:700}
-.cart-badge{position:absolute;top:6px;right:calc(50% - 18px);background:var(--red);color:#fff;font-size:9px;font-weight:800;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;border:1.5px solid #fff}
-.cart-badge.show{display:flex}
 
 /* ONBOARDING */
 #screen-onboard{background:var(--gd);justify-content:flex-end;overflow:hidden}
-.ob-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80') center/cover}
+.ob-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80') center/cover}
 .ob-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(27,67,50,0.75) 40%,rgba(27,67,50,0.98) 100%)}
 .ob-body{position:relative;z-index:2;padding:0 28px 52px}
 .ob-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
@@ -56,92 +65,97 @@ button{cursor:pointer;font-family:inherit}
 .ob-tag{font-size:18px;color:rgba(255,255,255,0.85);font-weight:500;margin-bottom:6px;line-height:1.4}
 .ob-sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:28px}
 .ob-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.ob-pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;padding:8px 16px;color:#fff;font-size:13px;font-weight:600}
-.btn-pri{width:100%;padding:17px;font-size:17px;font-weight:700;color:var(--gd);background:#fff;border:none;border-radius:14px;margin-bottom:10px;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
-.btn-out{width:100%;padding:14px;font-size:15px;font-weight:600;color:#fff;background:transparent;border:2px solid rgba(255,255,255,0.4);border-radius:14px}
+.pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:30px;padding:8px 16px;color:#fff;font-size:13px;font-weight:600}
+.btn-w{width:100%;padding:17px;font-size:17px;font-weight:700;color:var(--gd);background:#fff;border:none;border-radius:14px;margin-bottom:10px;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+.btn-o{width:100%;padding:14px;font-size:15px;font-weight:600;color:#fff;background:transparent;border:2px solid rgba(255,255,255,0.4);border-radius:14px}
 
-/* FEED */
+/* ——— FEED ——— */
 .greet{padding:18px 16px 8px}
 .hi{font-size:22px;font-weight:800}
 .sub{font-size:13px;color:var(--muted);margin-top:2px}
-.stories{display:flex;gap:10px;padding:10px 14px 14px;overflow-x:auto;scrollbar-width:none}
+
+.stories{display:flex;gap:10px;padding:10px 14px 12px;overflow-x:auto;scrollbar-width:none}
 .stories::-webkit-scrollbar{display:none}
-.story{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px}
+.story{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
 .s-ring{width:62px;height:62px;border-radius:18px;padding:2.5px;background:linear-gradient(135deg,var(--gl),var(--gold))}
-.s-in{width:100%;height:100%;border-radius:15px;background:#fff;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden}
-.s-add{background:none;border:2px dashed var(--gl);border-radius:18px}
+.s-in{width:100%;height:100%;border-radius:15px;background:#fff;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:26px}
+.s-add-ring{background:none;border:2px dashed var(--gl);border-radius:18px}
 .s-add-in{background:var(--gp);font-size:22px}
 .s-name{font-size:10.5px;font-weight:600;color:var(--text);text-align:center;max-width:62px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 .compose{margin:0 12px 14px;background:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;box-shadow:var(--sh);border:1px solid var(--border)}
-.ci{flex:1;border:none;outline:none;font-size:14px;color:var(--text);background:none;font-family:inherit}
+#composeInput{flex:1;border:none;outline:none;font-size:14px;color:var(--text);background:none;font-family:inherit}
 .csub{background:var(--g);border:none;border-radius:10px;padding:9px 16px;color:#fff;font-size:13px;font-weight:700}
 
-/* POSTS */
+/* POST CARDS */
 .post{background:#fff;margin:0 12px 14px;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;border:1px solid var(--border)}
-.ph{display:flex;align-items:center;gap:10px;padding:13px 14px 0}
+.post-hd{display:flex;align-items:center;gap:10px;padding:13px 14px 0}
 .pav{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--gp)}
-.pi{flex:1;min-width:0}
-.pn{font-size:14px;font-weight:700}
-.pl{font-size:12px;color:var(--muted);margin-top:1px}
-.pbadge{display:inline-flex;align-items:center;gap:3px;background:var(--gp);color:var(--gd);font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:4px}
-.more-btn{font-size:20px;color:var(--muted);background:none;border:none}
+.pinfo{flex:1;min-width:0}
+.pname{font-size:14px;font-weight:700}
+.ploc{font-size:12px;color:var(--muted);margin-top:1px}
+.pbadge{display:inline-flex;align-items:center;background:var(--gp);color:var(--gd);font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:4px}
+.more-btn{font-size:20px;color:var(--muted);background:none;border:none;padding:0 4px}
 .post-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;margin-top:12px;position:relative;overflow:hidden}
 .pi-label{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(to top,rgba(0,0,0,0.55),transparent);color:#fff;font-size:13px;font-weight:600}
 .ph-corn{background:linear-gradient(160deg,#4a7c59,#d4a017 50%,#a0522d)}
 .ph-organic{background:linear-gradient(160deg,#2d6a4f,#74c69d 60%,#b7e4c7)}
 .ph-cattle{background:linear-gradient(160deg,#5a3e2b,#7d5a3c 40%,#95bf74)}
-.ph-alert{background:linear-gradient(160deg,#1b4332,#2d6a4f)}
+.ph-wheat{background:linear-gradient(160deg,#8B6914,#D4A017 50%,#F0D060)}
 .pi-emoji{font-size:72px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3))}
-.pb{padding:12px 14px 0}
-.pt{font-size:14px;line-height:1.6}
+.post-body{padding:12px 14px 0}
+.post-txt{font-size:14px;line-height:1.6}
 .ptags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .ptag{background:var(--gp);color:var(--g);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
 .pacts{display:flex;border-top:1px solid var(--border);margin-top:12px}
-.pact{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 6px;border:none;background:none;font-size:13px;font-weight:600;color:var(--muted)}
+.pact{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:12px 6px;border:none;background:none;font-size:13px;font-weight:600;color:var(--muted)}
 .pact.liked{color:var(--red)}
 .pact.saved{color:var(--gold)}
+
+/* ALERT POST */
 .post-alert{background:linear-gradient(135deg,var(--gd),var(--gm));border-color:transparent}
-.post-alert .pn{color:#fff}.post-alert .pl{color:rgba(255,255,255,0.7)}.post-alert .pt{color:rgba(255,255,255,0.92)}
-.post-alert .pacts{border-top-color:rgba(255,255,255,0.15)}.post-alert .pact{color:rgba(255,255,255,0.8)}
+.post-alert .pname,.post-alert .post-txt{color:#fff}
+.post-alert .ploc{color:rgba(255,255,255,0.7)}
+.post-alert .pacts{border-top-color:rgba(255,255,255,0.15)}
+.post-alert .pact{color:rgba(255,255,255,0.85)}
 .alert-tag{display:inline-block;background:var(--gold);color:var(--gd);font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;margin-bottom:8px}
-.sec-title{font-size:20px;font-weight:800;padding:16px 16px 8px}
 
-/* LEARN */
-.lhero{background:linear-gradient(135deg,var(--gd),var(--gm));padding:22px 16px;color:#fff}
-.lhero h2{font-size:22px;font-weight:900;margin-bottom:4px}
-.lhero p{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:14px}
-.lsearch{background:#fff;border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:8px}
-.lsearch input{flex:1;border:none;outline:none;font-size:14px;font-family:inherit;color:var(--text)}
-.cats{display:flex;gap:8px;padding:14px 14px 2px;overflow-x:auto;scrollbar-width:none}
-.cats::-webkit-scrollbar{display:none}
-.cat{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:2px solid var(--border);background:#fff;color:var(--muted);white-space:nowrap;flex-shrink:0}
-.cat.active{background:var(--g);border-color:var(--g);color:#fff}
-.feat-learn{margin:12px 12px 6px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-.fl-img{height:160px;background:linear-gradient(135deg,#1b4332,#40916c 50%,#74c69d);display:flex;align-items:center;justify-content:center;position:relative}
-.fl-emoji{font-size:80px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
-.fl-badge{position:absolute;top:12px;left:12px;background:var(--gold);color:var(--gd);font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px}
-.fl-body{background:#fff;padding:14px}
-.fl-cat{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px}
-.fl-title{font-size:18px;font-weight:800;margin-bottom:6px;line-height:1.25}
-.fl-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+/* ——— LEARN ——— */
+.l-hero{background:linear-gradient(135deg,var(--gd),var(--gm));padding:22px 16px;color:#fff}
+.l-hero h2{font-size:22px;font-weight:900;margin-bottom:4px}
+.l-hero p{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:14px}
+.search-bar{background:#fff;border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:8px}
+.search-bar input{flex:1;border:none;outline:none;font-size:14px;font-family:inherit;color:var(--text)}
+
+.chips{display:flex;gap:8px;padding:14px 14px 4px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:2px solid var(--border);background:#fff;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.chip.active{background:var(--g);border-color:var(--g);color:#fff}
+
+.feat-card{margin:12px 12px 6px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.fc-img{height:160px;background:linear-gradient(135deg,#1b4332,#40916c 50%,#74c69d);display:flex;align-items:center;justify-content:center;position:relative}
+.fc-emoji{font-size:80px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+.fc-badge{position:absolute;top:12px;left:12px;background:var(--gold);color:var(--gd);font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px}
+.fc-body{background:#fff;padding:14px}
+.fc-cat{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px}
+.fc-title{font-size:18px;font-weight:800;margin-bottom:6px;line-height:1.25}
+.fc-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px}
 .btn-g{background:var(--g);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700}
-.llist{padding:6px 12px 0}
-.lrow{background:#fff;border-radius:14px;padding:13px;margin-bottom:10px;display:flex;gap:12px;align-items:center;box-shadow:var(--sh);border:1px solid var(--border)}
-.li-icon{width:56px;height:56px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px}
-.li-icon.g{background:var(--gp)}.li-icon.o{background:#FEF3E2}.li-icon.b{background:#EBF5FB}.li-icon.p{background:#F8F0FF}
-.lb{flex:1;min-width:0}
-.lc{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:0.5px}
-.lt{font-size:14px;font-weight:700;margin:2px 0;line-height:1.3}
-.lm{font-size:12px;color:var(--muted);display:flex;gap:10px}
-.la{font-size:18px;color:var(--muted)}
-.no-results{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px}
 
-/* RESOURCES */
-.rhero{background:linear-gradient(135deg,var(--gd),var(--gm));padding:22px 16px;color:#fff}
-.rhero h2{font-size:22px;font-weight:900;margin-bottom:4px}
-.rhero p{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:14px}
-.rsearch{background:#fff;border-radius:12px;padding:11px 14px;display:flex;gap:8px;align-items:center}
-.rsearch input{flex:1;border:none;outline:none;font-size:14px;font-family:inherit}
+.llist{padding:6px 12px 0}
+.lrow{background:#fff;border-radius:14px;padding:13px;margin-bottom:10px;display:flex;gap:12px;align-items:center;box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer}
+.li-ic{width:54px;height:54px;border-radius:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px}
+.li-g{background:var(--gp)}.li-o{background:#FEF3E2}.li-b{background:#EBF5FB}.li-p{background:#F8F0FF}
+.lb{flex:1;min-width:0}
+.lcat{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:0.5px}
+.ltit{font-size:14px;font-weight:700;margin:2px 0;line-height:1.3}
+.lmeta{font-size:12px;color:var(--muted);display:flex;gap:10px}
+.larr{font-size:18px;color:var(--muted)}
+
+/* ——— RESOURCES ——— */
+.r-hero{background:linear-gradient(135deg,var(--gd),var(--gm));padding:22px 16px;color:#fff}
+.r-hero h2{font-size:22px;font-weight:900;margin-bottom:4px}
+.r-hero p{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:14px}
 .rtabs{display:flex;background:#fff;border-bottom:1px solid var(--border)}
 .rtab{flex:1;padding:13px 4px;text-align:center;font-size:12px;font-weight:600;color:var(--muted);border:none;background:none;border-bottom:3px solid transparent}
 .rtab.active{color:var(--g);border-bottom-color:var(--g)}
@@ -149,417 +163,465 @@ button{cursor:pointer;font-family:inherit}
 .rcard{background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh);border:1px solid var(--border)}
 .rc-top{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
 .rci{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.rci.g{background:var(--gp)}.rci.o{background:#FEF3E2}.rci.b{background:#EBF5FB}
-.rc-title{font-size:15px;font-weight:800;line-height:1.3}
+.rci-g{background:var(--gp)}.rci-o{background:#FEF3E2}.rci-b{background:#EBF5FB}
+.rc-tit{font-size:15px;font-weight:800;line-height:1.3}
 .rc-agency{font-size:12px;color:var(--muted);margin-top:2px}
 .rc-amt{font-size:22px;font-weight:900;color:var(--g);margin-bottom:6px}
 .rc-desc{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:10px}
 .rc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .rtg{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
-.rtg.g{background:var(--gp);color:var(--gd)}.rtg.o{background:#FEF3E2;color:#c1560a}.rtg.b{background:#EBF5FB;color:#1a5fa8}
-.rc-dl{font-size:12px;color:var(--muted);margin-bottom:10px}
-.apply-btn{width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700;text-decoration:none;display:block;text-align:center}
-.apply-btn:visited{color:#fff}
-.save-res-btn{width:100%;padding:10px;background:var(--bg);color:var(--g);border:2px solid var(--g);border-radius:11px;font-size:13px;font-weight:700;margin-top:8px}
-.save-res-btn.saved-res{background:var(--gp);color:var(--gd)}
+.rtg-g{background:var(--gp);color:var(--gd)}.rtg-o{background:#FEF3E2;color:#c1560a}.rtg-b{background:#EBF5FB;color:#1a5fa8}
+.rc-dl{font-size:12px;color:var(--muted);margin-bottom:12px}
+.apply-btn{display:block;width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700;text-align:center;margin-bottom:8px}
+.save-btn{width:100%;padding:11px;background:var(--bg);color:var(--g);border:2px solid var(--g);border-radius:11px;font-size:13px;font-weight:700}
+.save-btn.saved{background:var(--gp);border-color:var(--gp);color:var(--gd)}
 
-/* MARKET */
-.mtop{padding:16px 14px 8px}
-.msearch{background:#fff;border:1px solid var(--border);border-radius:13px;padding:11px 14px;display:flex;gap:8px;align-items:center;margin-bottom:12px;box-shadow:var(--sh)}
-.msearch input{flex:1;border:none;outline:none;font-size:14px;font-family:inherit}
-.filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-.filters::-webkit-scrollbar{display:none}
-.fchip{padding:7px 15px;border-radius:20px;font-size:13px;font-weight:600;border:2px solid var(--border);background:#fff;color:var(--muted);white-space:nowrap;flex-shrink:0}
-.fchip.active{background:var(--g);border-color:var(--g);color:#fff}
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 12px 0}
-.mcard{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--border)}
-.mcard[data-hidden="true"]{display:none}
-.mc-img{height:110px;display:flex;align-items:center;justify-content:center;font-size:50px;position:relative}
-.mc-badge{position:absolute;top:8px;left:8px;background:var(--g);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
-.mc-tomato{background:linear-gradient(135deg,#ffb347,#e63946)}
-.mc-corn{background:linear-gradient(135deg,#f4d03f,#a9770a)}
-.mc-sun{background:linear-gradient(135deg,#f7dc6f,#e67e22)}
-.mc-egg{background:linear-gradient(135deg,#fdebd0,#e59866)}
-.mc-tractor{background:linear-gradient(135deg,#5d6d7e,#2c3e50)}
-.mc-honey{background:linear-gradient(135deg,#f9ca24,#f0932b)}
-.mc-kale{background:linear-gradient(135deg,#27ae60,#1e8449)}
-.mc-seed{background:linear-gradient(135deg,#a9cce3,#5dade2)}
-.mc-body{padding:9px 11px 11px}
-.mc-title{font-size:13px;font-weight:700;margin-bottom:2px}
-.mc-seller{font-size:11px;color:var(--muted);margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mc-bot{display:flex;align-items:center;justify-content:space-between}
-.mc-price{font-size:15px;font-weight:800;color:var(--g)}
-.add-btn{width:32px;height:32px;background:var(--g);border:none;border-radius:9px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background 0.15s}
-.add-btn.in-cart{background:var(--red)}
+/* ——— LISTINGS (Market → social classifieds) ——— */
+.list-hd{padding:16px 14px 8px}
+.lhd-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.post-list-btn{background:var(--g);color:#fff;border:none;border-radius:12px;padding:10px 18px;font-size:14px;font-weight:700}
+.listing-card{background:#fff;margin:0 12px 14px;border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--border);overflow:hidden}
+.lc-img{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:70px;position:relative}
+.lc-org{background:linear-gradient(135deg,#ffb347,#e63946)}
+.lc-sun{background:linear-gradient(135deg,#f7dc6f,#e67e22)}
+.lc-cattle{background:linear-gradient(160deg,#5a3e2b,#7d5a3c 40%,#95bf74)}
+.lc-seed{background:linear-gradient(135deg,#a9cce3,#5dade2)}
+.lc-honey{background:linear-gradient(135deg,#f9ca24,#f0932b)}
+.lc-equip{background:linear-gradient(135deg,#5d6d7e,#2c3e50)}
+.lc-badge{position:absolute;top:10px;left:10px;background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.lc-price-tag{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.6);color:#fff;font-size:14px;font-weight:800;padding:5px 12px;border-radius:20px}
+.lc-body{padding:13px 14px}
+.lc-title{font-size:16px;font-weight:800;margin-bottom:3px}
+.lc-seller{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.lc-desc{font-size:13px;color:var(--text);line-height:1.55;margin-bottom:12px}
+.lc-acts{display:flex;gap:8px}
+.contact-btn{flex:1;padding:12px;background:var(--g);color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700}
+.save-listing-btn{width:44px;height:44px;background:var(--bg);border:2px solid var(--border);border-radius:11px;font-size:18px;display:flex;align-items:center;justify-content:center}
+.save-listing-btn.saved{background:var(--gp);border-color:var(--gl)}
+.lc-stats{display:flex;gap:12px;margin-bottom:10px}
+.lc-stat{font-size:12px;color:var(--muted);font-weight:600}
 
-/* CART SIDEBAR */
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:none}
-.cart-overlay.open{display:block}
-.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:min(320px,90vw);background:#fff;z-index:501;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.3s}
-.cart-drawer.open{transform:translateX(0)}
-@media(min-width:520px){.cart-drawer{right:calc(50% - 240px)}}
-.cart-head{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.cart-head h3{font-size:18px;font-weight:800}
-.cart-close{background:none;border:none;font-size:24px;color:var(--muted)}
-.cart-items{flex:1;overflow-y:auto;padding:12px}
-.cart-item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
-.ci-emoji{font-size:28px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--bg);border-radius:10px}
-.ci-info{flex:1}
-.ci-name{font-size:14px;font-weight:700}
-.ci-price{font-size:13px;color:var(--g);font-weight:600}
-.ci-remove{background:none;border:none;font-size:18px;color:var(--muted)}
-.cart-footer{padding:16px;border-top:1px solid var(--border)}
-.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.ct-label{font-size:14px;color:var(--muted)}
-.ct-val{font-size:22px;font-weight:900;color:var(--g)}
-.checkout-btn{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700}
-.empty-cart{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px}
-
-/* PROFILE */
+/* ——— PROFILE ——— */
 .prof-hero{background:linear-gradient(135deg,var(--gd),var(--gm));padding:28px 20px 22px;color:#fff;text-align:center}
 .prof-av{width:76px;height:76px;border-radius:20px;background:rgba(255,255,255,0.2);border:3px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 10px}
 .prof-name{font-size:22px;font-weight:800}
 .prof-loc{font-size:13px;color:rgba(255,255,255,0.7);margin:4px 0 18px}
-.pstats{display:flex;background:rgba(255,255,255,0.1);border-radius:14px;overflow:hidden}
+.pstats{display:flex;background:rgba(255,255,255,0.12);border-radius:14px;overflow:hidden}
 .ps{flex:1;padding:12px 6px;text-align:center}
 .ps+.ps{border-left:1px solid rgba(255,255,255,0.15)}
 .ps-n{font-size:20px;font-weight:800}
 .ps-l{font-size:10px;color:rgba(255,255,255,0.7);margin-top:2px}
 .prof-body{padding:14px 12px}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.pbadge{background:#fff;border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;box-shadow:var(--sh);border:1px solid var(--border)}
-.pb-icon{font-size:22px}
-.pb-name{font-size:12px;font-weight:700}
-.pb-sub{font-size:10px;color:var(--muted)}
+.sec-hd{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.bdg{background:#fff;border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;box-shadow:var(--sh);border:1px solid var(--border)}
+.bdg-i{font-size:22px}
+.bdg-n{font-size:12px;font-weight:700}
+.bdg-s{font-size:10px;color:var(--muted)}
 .pmenu{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--border)}
-.pmi{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+.pmi{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer}
 .pmi:last-child{border-bottom:none}
 .pmi-i{font-size:20px;width:32px}
 .pmi-l{flex:1;font-size:15px;font-weight:600}
 .pmi-a{font-size:16px;color:#ccc}
-.saved-section{margin-top:14px}
+
+/* ——— MODAL ——— */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:600;display:none;align-items:flex-end;justify-content:center}
+.modal-ov.open{display:flex}
+.modal-box{background:#fff;border-radius:24px 24px 0 0;width:100%;max-height:82vh;overflow-y:auto;padding:8px 20px 40px}
+.m-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 16px}
+.m-title{font-size:20px;font-weight:800;margin-bottom:4px}
+.m-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.m-close{float:right;background:none;border:none;font-size:22px;color:var(--muted);margin-top:-4px;padding:0}
+.mbody p{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:12px}
+.mbody ul{padding-left:18px;margin-bottom:12px}
+.mbody li{font-size:14px;line-height:1.7;color:var(--text)}
+.m-link{display:block;width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700;text-align:center;margin-top:14px}
+
+/* POST COMPOSE MODAL */
+.post-modal-form{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.pf-input{padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-family:inherit;color:var(--text);outline:none;resize:none}
+.pf-input:focus{border-color:var(--g)}
+.pf-row{display:flex;gap:8px}
+.pf-select{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:12px;font-size:13px;font-family:inherit;color:var(--text);background:#fff;outline:none}
+.pf-submit{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;margin-top:4px}
 
 /* TOAST */
 .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-8px);background:rgba(27,67,50,0.95);color:#fff;border-radius:20px;padding:10px 20px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:all 0.25s;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:600;display:none;align-items:flex-end}
-.modal-ov.open{display:flex}
-.modal{background:#fff;border-radius:24px 24px 0 0;width:100%;max-height:80vh;overflow-y:auto;padding:20px 20px 40px}
-.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px}
-.modal-title{font-size:20px;font-weight:800;margin-bottom:4px}
-.modal-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
-.modal-close{float:right;background:none;border:none;font-size:22px;color:var(--muted);margin-top:-4px}
-.modal-body p{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:12px}
-.modal-body ul{padding-left:18px;margin-bottom:12px}
-.modal-body li{font-size:14px;line-height:1.7;color:var(--text)}
-.modal-link{display:block;width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:700;text-decoration:none;text-align:center;margin-top:12px}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
 
-<!-- Cart Drawer -->
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-head">
-    <h3>🛒 Cart</h3>
-    <button class="cart-close" onclick="closeCart()">✕</button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-footer">
-    <div class="cart-total"><span class="ct-label">Total</span><span class="ct-val" id="cartTotal">$0.00</span></div>
-    <button class="checkout-btn" onclick="checkout()">Checkout →</button>
+<!-- ——— MODAL ——— -->
+<div class="modal-ov" id="modal">
+  <div class="modal-box">
+    <div id="modal-content"></div>
   </div>
 </div>
 
-<!-- Content Modal -->
-<div class="modal-ov" id="contentModal">
-  <div class="modal" id="contentModalBody">
-    <div class="modal-handle"></div>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
-<!-- ONBOARDING -->
+<!-- ——— ONBOARDING ——— -->
 <div id="screen-onboard" class="screen active">
-  <div class="ob-photo"></div>
+  <div class="ob-bg"></div>
   <div class="ob-ov"></div>
   <div class="ob-body">
     <div class="ob-row"><div class="ob-icon">🌱</div><div class="ob-name">FarmRoot</div></div>
     <div class="ob-tag">The community built for<br>American farmers.</div>
     <div class="ob-sub">Education · Funding · Marketplace · Connection</div>
     <div class="ob-pills">
-      <div class="ob-pill">🌾 Crop Guides</div>
-      <div class="ob-pill">💰 USDA Grants</div>
-      <div class="ob-pill">🛒 Farm Market</div>
-      <div class="ob-pill">🤝 Community</div>
+      <div class="pill">🌾 Crop Guides</div>
+      <div class="pill">💰 USDA Grants</div>
+      <div class="pill">🛒 Classifieds</div>
+      <div class="pill">🤝 Community</div>
     </div>
-    <button class="btn-pri" onclick="enterApp()">Join Free →</button>
-    <button class="btn-out" onclick="enterApp()">Sign In</button>
+    <button class="btn-w" onclick="enterApp()">Join Free →</button>
+    <button class="btn-o" onclick="enterApp()">Sign In</button>
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- ——— MAIN APP ——— -->
 <div id="screen-app" class="screen">
 
   <div class="topbar">
-    <div class="logo"><div class="logo-icon">🌱</div>FarmRoot</div>
-    <div class="top-acts">
-      <button class="tbtn" onclick="showNotifications()">🔔<div class="ndot" id="notifDot"></div></button>
-      <button class="tbtn" onclick="openCart()">🛒</button>
+    <div class="logo"><div class="logo-i">🌱</div>FarmRoot</div>
+    <div class="top-r">
+      <button class="tbtn" onclick="openNotifs()">🔔<div class="ndot" id="ndot"></div></button>
+      <button class="tbtn" onclick="openSearch()">🔍</button>
       <button class="av" onclick="switchTab('profile')">J</button>
     </div>
   </div>
 
   <!-- FEED -->
-  <div class="tab-body panel active tc" id="panel-feed">
+  <div class="scroll panel active tc" id="panel-feed">
     <div class="greet">
       <div class="hi">Good evening, John 👋</div>
       <div class="sub">Here's what's growing in your community</div>
     </div>
     <div class="stories">
-      <div class="story"><div class="s-ring s-add"><div class="s-in s-add-in">➕</div></div><div class="s-name">Your Story</div></div>
-      <div class="story"><div class="s-ring"><div class="s-in">🧑‍🌾</div></div><div class="s-name">Tom B.</div></div>
-      <div class="story"><div class="s-ring"><div class="s-in">👩‍🌾</div></div><div class="s-name">Sara K.</div></div>
-      <div class="story"><div class="s-ring"><div class="s-in">🌾</div></div><div class="s-name">Greenacre</div></div>
-      <div class="story"><div class="s-ring"><div class="s-in">🐄</div></div><div class="s-name">HillTop</div></div>
-      <div class="story"><div class="s-ring"><div class="s-in">🌻</div></div><div class="s-name">SunFields</div></div>
+      <div class="story" onclick="openComposeModal()">
+        <div class="s-ring s-add-ring"><div class="s-in s-add-in">➕</div></div>
+        <div class="s-name">Your Story</div>
+      </div>
+      <div class="story" onclick="viewStory('Tom B.','🧑‍🌾')"><div class="s-ring"><div class="s-in">🧑‍🌾</div></div><div class="s-name">Tom B.</div></div>
+      <div class="story" onclick="viewStory('Sara K.','👩‍🌾')"><div class="s-ring"><div class="s-in">👩‍🌾</div></div><div class="s-name">Sara K.</div></div>
+      <div class="story" onclick="viewStory('Greenacre','🌾')"><div class="s-ring"><div class="s-in">🌾</div></div><div class="s-name">Greenacre</div></div>
+      <div class="story" onclick="viewStory('HillTop','🐄')"><div class="s-ring"><div class="s-in">🐄</div></div><div class="s-name">HillTop</div></div>
+      <div class="story" onclick="viewStory('SunFields','🌻')"><div class="s-ring"><div class="s-in">🌻</div></div><div class="s-name">SunFields</div></div>
     </div>
     <div class="compose">
       <div class="av">J</div>
-      <input class="ci" id="composeInput" placeholder="Share a farming update...">
-      <button class="csub" onclick="submitPost()">Post</button>
+      <input id="composeInput" placeholder="Share a farming update..." onfocus="openComposeModal()">
+      <button class="csub" onclick="openComposeModal()">Post</button>
     </div>
     <div id="postList">
       <div class="post" data-id="p1">
-        <div class="ph"><div class="pav">🧑‍🌾</div><div class="pi"><div class="pn">Tom Brewer <span class="pbadge">🌽 Corn Farmer</span></div><div class="pl">📍 Iowa · 2 hours ago</div></div><button class="more-btn" onclick="showPostMenu(this)">···</button></div>
+        <div class="post-hd">
+          <div class="pav">🧑‍🌾</div>
+          <div class="pinfo"><div class="pname">Tom Brewer <span class="pbadge">🌽 Corn</span></div><div class="ploc">📍 Iowa · 2h ago</div></div>
+          <button class="more-btn" onclick="postMenu('p1')">···</button>
+        </div>
         <div class="post-img ph-corn"><div class="pi-emoji">🌽</div><div class="pi-label">📍 North 40 acres — Iowa</div></div>
-        <div class="pb"><div class="pt">Just wrapped up planting on the north 40 acres. Soil temps finally hit 55°F — perfect for corn. Anyone else seeing delayed germination this season? We got 3 inches of rain last week which is helping.</div><div class="ptags"><span class="ptag">#corn</span><span class="ptag">#planting</span><span class="ptag">#iowa</span></div></div>
+        <div class="post-body"><div class="post-txt">Just wrapped up planting on the north 40 acres. Soil temps hit 55°F — perfect for corn. Anyone seeing delayed germination this season? Got 3 inches of rain last week which is helping a lot.</div><div class="ptags"><span class="ptag">#corn</span><span class="ptag">#planting</span><span class="ptag">#iowa</span></div></div>
         <div class="pacts">
           <button class="pact" onclick="likePost(this,'p1')">👍 <span>124</span></button>
-          <button class="pact" onclick="commentPost('p1')">💬 <span>18</span></button>
-          <button class="pact" onclick="savePost(this,'p1')">🔖 Save</button>
+          <button class="pact" onclick="commentOn('p1','Tom Brewer')">💬 <span>18</span></button>
+          <button class="pact" onclick="savePost(this,'p1')">🔖 <span>Save</span></button>
+          <button class="pact" onclick="sharePost('Tom Brewer')">↗️ <span>Share</span></button>
         </div>
       </div>
 
       <div class="post post-alert">
-        <div class="ph"><div class="pav" style="background:rgba(255,255,255,0.15)">📢</div><div class="pi"><div class="pn">FarmRoot Alert</div><div class="pl">🌐 National · Today</div></div></div>
-        <div class="pb" style="padding-top:10px"><div class="alert-tag">🚨 Grant Available</div><div class="pt">USDA Emergency Relief Program 2025 — up to <strong>$125,000</strong> for eligible farmers affected by drought or flooding. Deadline: April 30, 2026.</div></div>
+        <div class="post-hd"><div class="pav" style="background:rgba(255,255,255,0.15)">📢</div><div class="pinfo"><div class="pname">FarmRoot Alert</div><div class="ploc">🌐 National · Today</div></div></div>
+        <div class="post-body" style="padding-top:10px"><div class="alert-tag">🚨 Grant Available</div><div class="post-txt">USDA Emergency Relief Program 2025 — up to <strong>$125,000</strong> for eligible farmers affected by drought or flooding. Deadline: April 30, 2026.</div></div>
         <div class="pacts">
           <button class="pact" onclick="switchTab('resources')">💰 View Grant</button>
-          <button class="pact" onclick="sharePost()">↗️ Share</button>
+          <button class="pact" onclick="sharePost('FarmRoot')">↗️ Share</button>
         </div>
       </div>
 
       <div class="post" data-id="p2">
-        <div class="ph"><div class="pav">👩‍🌾</div><div class="pi"><div class="pn">Sara Knowles <span class="pbadge">🌿 Organic</span></div><div class="pl">📍 California · 5 hours ago</div></div><button class="more-btn" onclick="showPostMenu(this)">···</button></div>
+        <div class="post-hd">
+          <div class="pav">👩‍🌾</div>
+          <div class="pinfo"><div class="pname">Sara Knowles <span class="pbadge">🌿 Organic</span></div><div class="ploc">📍 California · 5h ago</div></div>
+          <button class="more-btn" onclick="postMenu('p2')">···</button>
+        </div>
         <div class="post-img ph-organic"><div class="pi-emoji">🌿</div><div class="pi-label">📜 USDA Organic Certified — 3 years in the making</div></div>
-        <div class="pb"><div class="pt">We just received our USDA Organic Certification! 3 years of hard work paid off. If anyone needs guidance on the application process, happy to help. The resources on FarmRoot made it so much easier. 🙌</div><div class="ptags"><span class="ptag">#organic</span><span class="ptag">#USDA</span><span class="ptag">#certified</span></div></div>
+        <div class="post-body"><div class="post-txt">We just received our USDA Organic Certification! 3 years of hard work paid off. If anyone needs guidance on the process, happy to help. FarmRoot made it so much easier to navigate. 🙌</div><div class="ptags"><span class="ptag">#organic</span><span class="ptag">#USDA</span><span class="ptag">#certified</span></div></div>
         <div class="pacts">
           <button class="pact liked" onclick="likePost(this,'p2')">❤️ <span>312</span></button>
-          <button class="pact" onclick="commentPost('p2')">💬 <span>47</span></button>
-          <button class="pact" onclick="savePost(this,'p2')">🔖 Save</button>
+          <button class="pact" onclick="commentOn('p2','Sara Knowles')">💬 <span>47</span></button>
+          <button class="pact" onclick="savePost(this,'p2')">🔖 <span>Save</span></button>
+          <button class="pact" onclick="sharePost('Sara Knowles')">↗️ <span>Share</span></button>
         </div>
       </div>
 
       <div class="post" data-id="p3">
-        <div class="ph"><div class="pav">🐄</div><div class="pi"><div class="pn">HillTop Ranch <span class="pbadge">🐄 Livestock</span></div><div class="pl">📍 Texas · 8 hours ago</div></div><button class="more-btn" onclick="showPostMenu(this)">···</button></div>
+        <div class="post-hd">
+          <div class="pav">🐄</div>
+          <div class="pinfo"><div class="pname">HillTop Ranch <span class="pbadge">🐄 Livestock</span></div><div class="ploc">📍 Texas · 8h ago</div></div>
+          <button class="more-btn" onclick="postMenu('p3')">···</button>
+        </div>
         <div class="post-img ph-cattle"><div class="pi-emoji">🐄</div><div class="pi-label">🌿 Pasture 3 — Rotational grazing day 1</div></div>
-        <div class="pb"><div class="pt">Moved the herd to pasture 3 this morning. Grass height at 8 inches, perfect for our Angus. Soil moisture holding well despite the heat. Anyone using cover crops between rotations?</div><div class="ptags"><span class="ptag">#livestock</span><span class="ptag">#grazing</span><span class="ptag">#texas</span></div></div>
+        <div class="post-body"><div class="post-txt">Moved the herd to pasture 3 this morning. Grass at 8 inches — perfect for our Angus. Soil moisture holding well despite the heat. Anyone using cover crops between rotations?</div><div class="ptags"><span class="ptag">#livestock</span><span class="ptag">#grazing</span><span class="ptag">#texas</span></div></div>
         <div class="pacts">
           <button class="pact" onclick="likePost(this,'p3')">👍 <span>89</span></button>
-          <button class="pact" onclick="commentPost('p3')">💬 <span>22</span></button>
-          <button class="pact" onclick="savePost(this,'p3')">🔖 Save</button>
+          <button class="pact" onclick="commentOn('p3','HillTop Ranch')">💬 <span>22</span></button>
+          <button class="pact" onclick="savePost(this,'p3')">🔖 <span>Save</span></button>
+          <button class="pact" onclick="sharePost('HillTop Ranch')">↗️ <span>Share</span></button>
+        </div>
+      </div>
+
+      <div class="post" data-id="p4">
+        <div class="post-hd">
+          <div class="pav">🌾</div>
+          <div class="pinfo"><div class="pname">Greenacre Farms <span class="pbadge">🌾 Grain</span></div><div class="ploc">📍 Kansas · 12h ago</div></div>
+          <button class="more-btn" onclick="postMenu('p4')">···</button>
+        </div>
+        <div class="post-img ph-wheat"><div class="pi-emoji">🌾</div><div class="pi-label">📍 Winter wheat — looking strong this season</div></div>
+        <div class="post-body"><div class="post-txt">Winter wheat is looking incredible this year. Best stand establishment we've had in 5 years. Credited it to the cover crop mix we ran last fall — really improved soil structure. Yield estimates are up 15% already.</div><div class="ptags"><span class="ptag">#wheat</span><span class="ptag">#grain</span><span class="ptag">#kansas</span></div></div>
+        <div class="pacts">
+          <button class="pact" onclick="likePost(this,'p4')">👍 <span>201</span></button>
+          <button class="pact" onclick="commentOn('p4','Greenacre Farms')">💬 <span>33</span></button>
+          <button class="pact" onclick="savePost(this,'p4')">🔖 <span>Save</span></button>
+          <button class="pact" onclick="sharePost('Greenacre Farms')">↗️ <span>Share</span></button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- LEARN -->
-  <div class="tab-body panel tc" id="panel-learn">
-    <div class="lhero">
+  <div class="scroll panel tc" id="panel-learn">
+    <div class="l-hero">
       <h2>📚 Learn & Grow</h2>
       <p>Expert guides and tutorials for US farmers</p>
-      <div class="lsearch"><span>🔍</span><input id="learnSearch" placeholder="Search guides..." oninput="filterLearn(this.value)"></div>
+      <div class="search-bar"><span>🔍</span><input id="learnSearch" placeholder="Search guides..." oninput="filterLearn(this.value)"></div>
     </div>
-    <div class="cats">
-      <button class="cat active" onclick="filterLearnCat(this,'all')">All</button>
-      <button class="cat" onclick="filterLearnCat(this,'crops')">🌽 Crops</button>
-      <button class="cat" onclick="filterLearnCat(this,'livestock')">🐄 Livestock</button>
-      <button class="cat" onclick="filterLearnCat(this,'water')">💧 Water</button>
-      <button class="cat" onclick="filterLearnCat(this,'soil')">🌍 Soil</button>
-      <button class="cat" onclick="filterLearnCat(this,'business')">💰 Business</button>
-      <button class="cat" onclick="filterLearnCat(this,'organic')">🌿 Organic</button>
+    <div class="chips">
+      <button class="chip active" onclick="learnCat(this,'all')">All</button>
+      <button class="chip" onclick="learnCat(this,'crops')">🌽 Crops</button>
+      <button class="chip" onclick="learnCat(this,'livestock')">🐄 Livestock</button>
+      <button class="chip" onclick="learnCat(this,'water')">💧 Water</button>
+      <button class="chip" onclick="learnCat(this,'soil')">🌍 Soil</button>
+      <button class="chip" onclick="learnCat(this,'business')">💰 Business</button>
+      <button class="chip" onclick="learnCat(this,'organic')">🌿 Organic</button>
     </div>
     <div style="padding:10px 12px 6px">
-      <div class="feat-learn">
-        <div class="fl-img"><div class="fl-emoji">🌱</div><div class="fl-badge">⭐ Featured</div></div>
-        <div class="fl-body">
-          <div class="fl-cat">Seasonal Guide</div>
-          <div class="fl-title">Complete Guide to Spring Planting 2026</div>
-          <div class="fl-desc">Soil prep, seed selection, planting windows, and everything to maximize your yield this season.</div>
-          <button class="btn-g" onclick="openLearnModal('spring-planting')">Read Guide →</button>
+      <div class="feat-card" onclick="openLearn('spring')">
+        <div class="fc-img"><div class="fc-emoji">🌱</div><div class="fc-badge">⭐ Featured</div></div>
+        <div class="fc-body">
+          <div class="fc-cat">Seasonal Guide</div>
+          <div class="fc-title">Complete Guide to Spring Planting 2026</div>
+          <div class="fc-desc">Soil prep, seed selection, planting windows and everything to maximize your yield this season.</div>
+          <button class="btn-g">Read Guide →</button>
         </div>
       </div>
     </div>
     <div class="llist" id="learnList">
-      <div class="lrow" data-cat="water" onclick="openLearnModal('drip-irrigation')"><div class="li-icon g">💧</div><div class="lb"><div class="lc">Water Management</div><div class="lt">Drip Irrigation Setup for Small Farms</div><div class="lm"><span>⏱ 8 min</span><span>⭐ 4.9</span></div></div><div class="la">›</div></div>
-      <div class="lrow" data-cat="soil" onclick="openLearnModal('soil-ph')"><div class="li-icon g">🌍</div><div class="lb"><div class="lc">Soil Health</div><div class="lt">How to Test & Improve Soil pH Naturally</div><div class="lm"><span>⏱ 12 min</span><span>⭐ 4.8</span></div></div><div class="la">›</div></div>
-      <div class="lrow" data-cat="crops" onclick="openLearnModal('pest-control')"><div class="li-icon o">🐛</div><div class="lb"><div class="lc">Pest Control</div><div class="lt">Identifying & Treating Common Crop Pests</div><div class="lm"><span>⏱ 15 min</span><span>⭐ 4.7</span></div></div><div class="la">›</div></div>
-      <div class="lrow" data-cat="business" onclick="openLearnModal('usda-loans')"><div class="li-icon o">💰</div><div class="lb"><div class="lc">Farm Business</div><div class="lt">How to Apply for USDA Farm Loans: Step by Step</div><div class="lm"><span>⏱ 20 min</span><span>⭐ 5.0</span></div></div><div class="la">›</div></div>
-      <div class="lrow" data-cat="organic" onclick="openLearnModal('go-organic')"><div class="li-icon g">🌿</div><div class="lb"><div class="lc">Organic Farming</div><div class="lt">Transitioning Your Farm to Organic: Year 1</div><div class="lm"><span>⏱ 18 min</span><span>⭐ 4.9</span></div></div><div class="la">›</div></div>
-      <div class="lrow" data-cat="livestock" onclick="openLearnModal('tractor-maintenance')"><div class="li-icon b">🚜</div><div class="lb"><div class="lc">Equipment</div><div class="lt">Tractor Maintenance Every Farmer Needs to Know</div><div class="lm"><span>⏱ 10 min</span><span>⭐ 4.6</span></div></div><div class="la">›</div></div>
-      <div class="lrow" data-cat="crops" onclick="openLearnModal('cover-crops')"><div class="li-icon g">🌱</div><div class="lb"><div class="lc">Soil Health</div><div class="lt">Cover Crops: The Secret to Healthy Soil</div><div class="lm"><span>⏱ 11 min</span><span>⭐ 4.8</span></div></div><div class="la">›</div></div>
+      <div class="lrow" data-cat="water" onclick="openLearn('irrigation')"><div class="li-ic li-g">💧</div><div class="lb"><div class="lcat">Water Management</div><div class="ltit">Drip Irrigation Setup for Small Farms</div><div class="lmeta"><span>⏱ 8 min</span><span>⭐ 4.9</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="soil" onclick="openLearn('soil-ph')"><div class="li-ic li-g">🌍</div><div class="lb"><div class="lcat">Soil Health</div><div class="ltit">How to Test & Improve Soil pH Naturally</div><div class="lmeta"><span>⏱ 12 min</span><span>⭐ 4.8</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="crops" onclick="openLearn('pests')"><div class="li-ic li-o">🐛</div><div class="lb"><div class="lcat">Pest Control</div><div class="ltit">Identifying & Treating Common Crop Pests</div><div class="lmeta"><span>⏱ 15 min</span><span>⭐ 4.7</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="business" onclick="openLearn('loans')"><div class="li-ic li-o">💰</div><div class="lb"><div class="lcat">Farm Business</div><div class="ltit">How to Apply for USDA Farm Loans: Step by Step</div><div class="lmeta"><span>⏱ 20 min</span><span>⭐ 5.0</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="organic" onclick="openLearn('organic')"><div class="li-ic li-g">🌿</div><div class="lb"><div class="lcat">Organic Farming</div><div class="ltit">Transitioning Your Farm to Organic: Year 1</div><div class="lmeta"><span>⏱ 18 min</span><span>⭐ 4.9</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="livestock" onclick="openLearn('tractor')"><div class="li-ic li-b">🚜</div><div class="lb"><div class="lcat">Equipment</div><div class="ltit">Tractor Maintenance Every Farmer Needs to Know</div><div class="lmeta"><span>⏱ 10 min</span><span>⭐ 4.6</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="soil" onclick="openLearn('cover')"><div class="li-ic li-g">🌱</div><div class="lb"><div class="lcat">Soil Health</div><div class="ltit">Cover Crops: The Secret to Healthy Soil</div><div class="lmeta"><span>⏱ 11 min</span><span>⭐ 4.8</span></div></div><div class="larr">›</div></div>
+      <div class="lrow" data-cat="business" onclick="openLearn('markets')"><div class="li-ic li-o">📈</div><div class="lb"><div class="lcat">Farm Business</div><div class="ltit">Selling at Farmers Markets: A Beginner's Guide</div><div class="lmeta"><span>⏱ 14 min</span><span>⭐ 4.7</span></div></div><div class="larr">›</div></div>
     </div>
   </div>
 
   <!-- RESOURCES -->
-  <div class="tab-body panel tc" id="panel-resources">
-    <div class="rhero">
+  <div class="scroll panel tc" id="panel-resources">
+    <div class="r-hero">
       <h2>💰 Financial Resources</h2>
       <p>Grants, loans & programs for US farmers</p>
-      <div class="rsearch"><span>🔍</span><input id="resSearch" placeholder="Search grants, loans, programs..." oninput="filterRes(this.value)"></div>
+      <div class="search-bar"><span>🔍</span><input id="resSearch" placeholder="Search grants, loans..." oninput="filterRes(this.value)"></div>
     </div>
     <div class="rtabs">
-      <button class="rtab active" onclick="filterResTab(this,'all')">All</button>
-      <button class="rtab" onclick="filterResTab(this,'grant')">🌾 Grants</button>
-      <button class="rtab" onclick="filterResTab(this,'loan')">🏦 Loans</button>
-      <button class="rtab" onclick="filterResTab(this,'program')">📋 Programs</button>
+      <button class="rtab active" onclick="resTab(this,'all')">All</button>
+      <button class="rtab" onclick="resTab(this,'grant')">🌾 Grants</button>
+      <button class="rtab" onclick="resTab(this,'loan')">🏦 Loans</button>
+      <button class="rtab" onclick="resTab(this,'program')">📋 Programs</button>
     </div>
     <div class="rlist" id="resList">
-      <div class="rcard" data-type="grant" data-keywords="emergency relief drought flood disaster">
-        <div class="rc-top"><div class="rci g">🌾</div><div><div class="rc-title">Emergency Relief Program (ERP) 2025</div><div class="rc-agency">USDA — Farm Service Agency</div></div></div>
+      <div class="rcard" data-type="grant" data-kw="emergency relief drought flood disaster">
+        <div class="rc-top"><div class="rci rci-g">🌾</div><div><div class="rc-tit">Emergency Relief Program (ERP) 2025</div><div class="rc-agency">USDA — Farm Service Agency</div></div></div>
         <div class="rc-amt">Up to $125,000</div>
         <div class="rc-desc">Financial assistance for farmers and ranchers who suffered losses due to qualifying disasters including wildfires, drought, and flooding.</div>
-        <div class="rc-tags"><span class="rtg g">🌾 Grant</span><span class="rtg o">⚡ Urgent</span><span class="rtg b">🇺🇸 Federal</span></div>
+        <div class="rc-tags"><span class="rtg rtg-g">🌾 Grant</span><span class="rtg rtg-o">⚡ Urgent</span><span class="rtg rtg-b">🇺🇸 Federal</span></div>
         <div class="rc-dl">📅 Deadline: April 30, 2026</div>
-        <a class="apply-btn" href="https://www.fsa.usda.gov/programs-and-services/emergency-relief/index" target="_blank" rel="noopener">Apply on USDA.gov →</a>
-        <button class="save-res-btn" onclick="saveResource(this,'ERP 2025')">🔖 Save for Later</button>
+        <a class="apply-btn" href="https://www.fsa.usda.gov/programs-and-services/emergency-relief/index" target="_blank">Apply on USDA.gov →</a>
+        <button class="save-btn" onclick="saveRes(this,'ERP 2025')">🔖 Save for Later</button>
       </div>
-      <div class="rcard" data-type="loan" data-keywords="operating loan equipment seed livestock family">
-        <div class="rc-top"><div class="rci o">🏦</div><div><div class="rc-title">FSA Farm Operating Loan</div><div class="rc-agency">USDA — Farm Service Agency</div></div></div>
+      <div class="rcard" data-type="loan" data-kw="operating loan equipment seed livestock beginning farmer">
+        <div class="rc-top"><div class="rci rci-o">🏦</div><div><div class="rc-tit">FSA Farm Operating Loan</div><div class="rc-agency">USDA — Farm Service Agency</div></div></div>
         <div class="rc-amt">Up to $400,000</div>
         <div class="rc-desc">Low-interest loans for family farmers covering operating expenses, livestock, equipment, and seed. Priority for beginning farmers.</div>
-        <div class="rc-tags"><span class="rtg b">🏦 Loan</span><span class="rtg g">Low Interest</span></div>
+        <div class="rc-tags"><span class="rtg rtg-b">🏦 Loan</span><span class="rtg rtg-g">Low Interest</span></div>
         <div class="rc-dl">📅 Rolling applications</div>
-        <a class="apply-btn" href="https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/index" target="_blank" rel="noopener">Apply on USDA.gov →</a>
-        <button class="save-res-btn" onclick="saveResource(this,'FSA Operating Loan')">🔖 Save for Later</button>
+        <a class="apply-btn" href="https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/index" target="_blank">Apply on USDA.gov →</a>
+        <button class="save-btn" onclick="saveRes(this,'FSA Operating Loan')">🔖 Save for Later</button>
       </div>
-      <div class="rcard" data-type="grant" data-keywords="beginning farmer education training mentorship land">
-        <div class="rc-top"><div class="rci g">🌱</div><div><div class="rc-title">Beginning Farmer & Rancher Development</div><div class="rc-agency">USDA — NIFA</div></div></div>
+      <div class="rcard" data-type="grant" data-kw="beginning farmer education training mentorship land access">
+        <div class="rc-top"><div class="rci rci-g">🌱</div><div><div class="rc-tit">Beginning Farmer & Rancher Development</div><div class="rc-agency">USDA — NIFA</div></div></div>
         <div class="rc-amt">Up to $250,000</div>
         <div class="rc-desc">Grants for training, education, outreach and technical assistance for beginning farmers. Includes mentorship and land access support.</div>
-        <div class="rc-tags"><span class="rtg g">🌾 Grant</span><span class="rtg b">🎓 Education</span></div>
+        <div class="rc-tags"><span class="rtg rtg-g">🌾 Grant</span><span class="rtg rtg-b">🎓 Education</span></div>
         <div class="rc-dl">📅 Deadline: May 15, 2026</div>
-        <a class="apply-btn" href="https://www.nifa.usda.gov/grants/programs/beginning-farmer-rancher-development-program-bfrdp" target="_blank" rel="noopener">Apply on NIFA.gov →</a>
-        <button class="save-res-btn" onclick="saveResource(this,'BFRDP Grant')">🔖 Save for Later</button>
+        <a class="apply-btn" href="https://www.nifa.usda.gov/grants/programs/beginning-farmer-rancher-development-program-bfrdp" target="_blank">Apply on NIFA.gov →</a>
+        <button class="save-btn" onclick="saveRes(this,'BFRDP Grant')">🔖 Save for Later</button>
       </div>
-      <div class="rcard" data-type="program" data-keywords="crop insurance drought hail frost disease coverage">
-        <div class="rc-top"><div class="rci b">☔</div><div><div class="rc-title">Crop Insurance — MPCI Program</div><div class="rc-agency">USDA — Risk Management Agency</div></div></div>
+      <div class="rcard" data-type="program" data-kw="crop insurance drought hail frost disease coverage protection">
+        <div class="rc-top"><div class="rci rci-b">☔</div><div><div class="rc-tit">Crop Insurance — MPCI Program</div><div class="rc-agency">USDA — Risk Management Agency</div></div></div>
         <div class="rc-amt">Protects up to 85% of crop value</div>
         <div class="rc-desc">Multi-Peril Crop Insurance protects against natural disasters. Subsidized premiums available for qualifying farmers.</div>
-        <div class="rc-tags"><span class="rtg b">📋 Insurance</span><span class="rtg g">Subsidized</span></div>
+        <div class="rc-tags"><span class="rtg rtg-b">📋 Insurance</span><span class="rtg rtg-g">Subsidized</span></div>
         <div class="rc-dl">📅 Sign-up: March 15 cutoff for most crops</div>
-        <a class="apply-btn" href="https://www.rma.usda.gov/en/Fact-Sheets/National-Fact-Sheets/Catastrophic-Risk-Protection-Endorsement" target="_blank" rel="noopener">Learn More on RMA.gov →</a>
-        <button class="save-res-btn" onclick="saveResource(this,'MPCI Crop Insurance')">🔖 Save for Later</button>
+        <a class="apply-btn" href="https://www.rma.usda.gov" target="_blank">Learn More on RMA.gov →</a>
+        <button class="save-btn" onclick="saveRes(this,'MPCI Crop Insurance')">🔖 Save for Later</button>
       </div>
-      <div class="rcard" data-type="grant" data-keywords="conservation irrigation soil nutrient environment EQIP">
-        <div class="rc-top"><div class="rci g">♻️</div><div><div class="rc-title">EQIP — Environmental Quality Incentives</div><div class="rc-agency">USDA — NRCS</div></div></div>
+      <div class="rcard" data-type="grant" data-kw="conservation irrigation soil nutrient environment EQIP">
+        <div class="rc-top"><div class="rci rci-g">♻️</div><div><div class="rc-tit">EQIP — Environmental Quality Incentives</div><div class="rc-agency">USDA — NRCS</div></div></div>
         <div class="rc-amt">Up to $450,000 over 10 years</div>
-        <div class="rc-desc">Financial and technical assistance for irrigation efficiency, nutrient management, and conservation practices.</div>
-        <div class="rc-tags"><span class="rtg g">🌾 Grant</span><span class="rtg g">🌿 Conservation</span></div>
+        <div class="rc-desc">Financial and technical assistance for irrigation efficiency, nutrient management, and conservation practices. One of USDA's largest programs.</div>
+        <div class="rc-tags"><span class="rtg rtg-g">🌾 Grant</span><span class="rtg rtg-g">🌿 Conservation</span></div>
         <div class="rc-dl">📅 Continuous sign-up</div>
-        <a class="apply-btn" href="https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives" target="_blank" rel="noopener">Apply on NRCS.gov →</a>
-        <button class="save-res-btn" onclick="saveResource(this,'EQIP Grant')">🔖 Save for Later</button>
+        <a class="apply-btn" href="https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives" target="_blank">Apply on NRCS.gov →</a>
+        <button class="save-btn" onclick="saveRes(this,'EQIP Grant')">🔖 Save for Later</button>
       </div>
     </div>
   </div>
 
-  <!-- MARKET -->
-  <div class="tab-body panel tc" id="panel-market">
-    <div class="mtop">
-      <div class="hi" style="margin-bottom:12px">🛒 FarmMarket</div>
-      <div class="msearch"><span>🔍</span><input id="marketSearch" placeholder="Search produce, equipment, seeds..." oninput="filterMarket(this.value)"></div>
-      <div class="filters">
-        <button class="fchip active" onclick="filterMarketCat(this,'all')">All</button>
-        <button class="fchip" onclick="filterMarketCat(this,'produce')">🥕 Produce</button>
-        <button class="fchip" onclick="filterMarketCat(this,'equipment')">🚜 Equipment</button>
-        <button class="fchip" onclick="filterMarketCat(this,'seeds')">🌱 Seeds</button>
-        <button class="fchip" onclick="filterMarketCat(this,'livestock')">🐄 Livestock</button>
+  <!-- LISTINGS -->
+  <div class="scroll panel tc" id="panel-listings">
+    <div class="list-hd">
+      <div class="lhd-row">
+        <div class="hi">🛒 Classifieds</div>
+        <button class="post-list-btn" onclick="openPostListing()">+ Post Listing</button>
+      </div>
+      <div class="search-bar" style="margin-bottom:12px"><span>🔍</span><input id="listSearch" placeholder="Search listings..." oninput="filterListings(this.value)"></div>
+      <div class="chips" style="padding:0 0 4px">
+        <button class="chip active" onclick="listCat(this,'all')">All</button>
+        <button class="chip" onclick="listCat(this,'produce')">🥕 Produce</button>
+        <button class="chip" onclick="listCat(this,'equipment')">🚜 Equipment</button>
+        <button class="chip" onclick="listCat(this,'seeds')">🌱 Seeds</button>
+        <button class="chip" onclick="listCat(this,'livestock')">🐄 Livestock</button>
+        <button class="chip" onclick="listCat(this,'land')">🏡 Land</button>
       </div>
     </div>
-    <div class="mgrid" id="marketGrid">
-      <div class="mcard" data-cat="produce" data-name="heirloom tomatoes">
-        <div class="mc-img mc-tomato"><div class="mc-badge">🌿 Organic</div>🍅</div>
-        <div class="mc-body"><div class="mc-title">Heirloom Tomatoes</div><div class="mc-seller">📍 Green Valley, CA</div>
-        <div class="mc-bot"><div class="mc-price">$4.50/lb</div><button class="add-btn" onclick="addToCart(this,'Heirloom Tomatoes','🍅',4.50)">+</button></div></div>
+    <div id="listingsList">
+      <div class="listing-card" data-cat="produce" data-name="heirloom tomatoes organic">
+        <div class="lc-img lc-org"><div class="lc-badge">🌿 Organic</div><div class="lc-price-tag">$4.50/lb</div>🍅</div>
+        <div class="lc-body">
+          <div class="lc-title">Heirloom Tomatoes — Certified Organic</div>
+          <div class="lc-seller">👩‍🌾 Green Valley Farm · <span style="color:var(--g);font-weight:700">📍 Fresno, CA</span></div>
+          <div class="lc-stats"><span class="lc-stat">📦 200 lbs available</span><span class="lc-stat">👁 143 views</span></div>
+          <div class="lc-desc">Beautiful heirloom varieties — Brandywine, Cherokee Purple, Green Zebra. Freshly harvested, same-day pick. Can arrange local delivery for large orders.</div>
+          <div class="lc-acts">
+            <button class="contact-btn" onclick="contactSeller('Green Valley Farm')">📩 Contact Seller</button>
+            <button class="save-listing-btn" onclick="saveListing(this,'Heirloom Tomatoes')">🔖</button>
+          </div>
+        </div>
       </div>
-      <div class="mcard" data-cat="produce" data-name="sweet corn">
-        <div class="mc-img mc-corn">🌽</div>
-        <div class="mc-body"><div class="mc-title">Sweet Corn</div><div class="mc-seller">📍 Brewer Farms, IA</div>
-        <div class="mc-bot"><div class="mc-price">$0.75/ear</div><button class="add-btn" onclick="addToCart(this,'Sweet Corn','🌽',0.75)">+</button></div></div>
+
+      <div class="listing-card" data-cat="equipment" data-name="john deere tractor rental">
+        <div class="lc-img lc-equip"><div class="lc-price-tag">$180/day</div>🚜</div>
+        <div class="lc-body">
+          <div class="lc-title">John Deere 6120M — Available for Rent</div>
+          <div class="lc-seller">🧑‍🌾 Midwest Equipment Co · <span style="color:var(--g);font-weight:700">📍 Peoria, IL</span></div>
+          <div class="lc-stats"><span class="lc-stat">📅 Available: March–June</span><span class="lc-stat">👁 87 views</span></div>
+          <div class="lc-desc">120HP, front loader, good condition. Perfect for spring planting. Minimum 2-day rental. Delivery available within 50 miles. Full insurance included.</div>
+          <div class="lc-acts">
+            <button class="contact-btn" onclick="contactSeller('Midwest Equipment Co')">📩 Contact Seller</button>
+            <button class="save-listing-btn" onclick="saveListing(this,'Tractor Rental')">🔖</button>
+          </div>
+        </div>
       </div>
-      <div class="mcard" data-cat="seeds" data-name="sunflower seeds">
-        <div class="mc-img mc-sun">🌻</div>
-        <div class="mc-body"><div class="mc-title">Sunflower Seeds</div><div class="mc-seller">📍 SunFields, KS</div>
-        <div class="mc-bot"><div class="mc-price">$12/kg</div><button class="add-btn" onclick="addToCart(this,'Sunflower Seeds','🌻',12)">+</button></div></div>
+
+      <div class="listing-card" data-cat="livestock" data-name="angus cattle beef livestock">
+        <div class="lc-img lc-cattle"><div class="lc-price-tag">$2,200/head</div>🐄</div>
+        <div class="lc-body">
+          <div class="lc-title">Angus Beef Cattle — 12 Head Available</div>
+          <div class="lc-seller">🐄 HillTop Ranch · <span style="color:var(--g);font-weight:700">📍 Amarillo, TX</span></div>
+          <div class="lc-stats"><span class="lc-stat">🐄 12 head</span><span class="lc-stat">⚖️ Avg 1,150 lbs</span><span class="lc-stat">👁 62 views</span></div>
+          <div class="lc-desc">Registered Black Angus, pasture-raised, no antibiotics. All vaccinations current. Health certificates provided. Will negotiate on bulk purchases of 6+.</div>
+          <div class="lc-acts">
+            <button class="contact-btn" onclick="contactSeller('HillTop Ranch')">📩 Contact Seller</button>
+            <button class="save-listing-btn" onclick="saveListing(this,'Angus Cattle')">🔖</button>
+          </div>
+        </div>
       </div>
-      <div class="mcard" data-cat="livestock" data-name="free range eggs">
-        <div class="mc-img mc-egg">🥚</div>
-        <div class="mc-body"><div class="mc-title">Free Range Eggs</div><div class="mc-seller">📍 HillTop Ranch, TX</div>
-        <div class="mc-bot"><div class="mc-price">$6/doz</div><button class="add-btn" onclick="addToCart(this,'Free Range Eggs','🥚',6)">+</button></div></div>
+
+      <div class="listing-card" data-cat="seeds" data-name="sunflower seeds organic non-gmo">
+        <div class="lc-img lc-sun"><div class="lc-badge">Non-GMO</div><div class="lc-price-tag">$12/kg</div>🌻</div>
+        <div class="lc-body">
+          <div class="lc-title">Non-GMO Sunflower Seeds — 2025 Harvest</div>
+          <div class="lc-seller">🌻 SunFields Farm · <span style="color:var(--g);font-weight:700">📍 Salina, KS</span></div>
+          <div class="lc-stats"><span class="lc-stat">📦 500 kg available</span><span class="lc-stat">👁 95 views</span></div>
+          <div class="lc-desc">High-oleic confection sunflower seeds, cleaned and bagged. Germination rate 94%. Ideal for planting or processing. Bulk discounts at 100kg+.</div>
+          <div class="lc-acts">
+            <button class="contact-btn" onclick="contactSeller('SunFields Farm')">📩 Contact Seller</button>
+            <button class="save-listing-btn" onclick="saveListing(this,'Sunflower Seeds')">🔖</button>
+          </div>
+        </div>
       </div>
-      <div class="mcard" data-cat="equipment" data-name="tractor rental">
-        <div class="mc-img mc-tractor">🚜</div>
-        <div class="mc-body"><div class="mc-title">Tractor Rental</div><div class="mc-seller">📍 Midwest Equip, IL</div>
-        <div class="mc-bot"><div class="mc-price">$180/day</div><button class="add-btn" onclick="addToCart(this,'Tractor Rental','🚜',180)">+</button></div></div>
+
+      <div class="listing-card" data-cat="land" data-name="farmland lease rent pasture">
+        <div class="lc-img" style="background:linear-gradient(160deg,#2d6a4f,#52b788 50%,#d8f3dc)"><div class="lc-price-tag">$180/acre/yr</div>🏡</div>
+        <div class="lc-body">
+          <div class="lc-title">120 Acres Cropland — Available to Lease</div>
+          <div class="lc-seller">👨‍💼 Owens Land Co · <span style="color:var(--g);font-weight:700">📍 Lincoln, NE</span></div>
+          <div class="lc-stats"><span class="lc-stat">🌾 120 acres</span><span class="lc-stat">💧 Irrigated</span><span class="lc-stat">👁 211 views</span></div>
+          <div class="lc-desc">Prime Nebraska cropland, Class II soils, center pivot irrigation. Currently in corn/soybean rotation. 3-year minimum lease. Soil tests available on request.</div>
+          <div class="lc-acts">
+            <button class="contact-btn" onclick="contactSeller('Owens Land Co')">📩 Contact Seller</button>
+            <button class="save-listing-btn" onclick="saveListing(this,'120ac Cropland')">🔖</button>
+          </div>
+        </div>
       </div>
-      <div class="mcard" data-cat="produce" data-name="raw wildflower honey">
-        <div class="mc-img mc-honey">🍯</div>
-        <div class="mc-body"><div class="mc-title">Raw Honey</div><div class="mc-seller">📍 BeeHaven, TN</div>
-        <div class="mc-bot"><div class="mc-price">$18/jar</div><button class="add-btn" onclick="addToCart(this,'Raw Honey','🍯',18)">+</button></div></div>
-      </div>
-      <div class="mcard" data-cat="produce" data-name="organic kale mix">
-        <div class="mc-img mc-kale"><div class="mc-badge">🌿 Organic</div>🥬</div>
-        <div class="mc-body"><div class="mc-title">Organic Kale Mix</div><div class="mc-seller">📍 Pure Roots, OR</div>
-        <div class="mc-bot"><div class="mc-price">$3.25/bunch</div><button class="add-btn" onclick="addToCart(this,'Organic Kale','🥬',3.25)">+</button></div></div>
-      </div>
-      <div class="mcard" data-cat="seeds" data-name="cover crop seed mix">
-        <div class="mc-img mc-seed">🌱</div>
-        <div class="mc-body"><div class="mc-title">Cover Crop Seeds</div><div class="mc-seller">📍 SeedWorks, NE</div>
-        <div class="mc-bot"><div class="mc-price">$45/50lb</div><button class="add-btn" onclick="addToCart(this,'Cover Crop Seeds','🌱',45)">+</button></div></div>
+
+      <div class="listing-card" data-cat="seeds" data-name="cover crop seed mix rye clover radish">
+        <div class="lc-img lc-seed"><div class="lc-price-tag">$45/50lb</div>🌱</div>
+        <div class="lc-body">
+          <div class="lc-title">Cover Crop Seed Mix — Rye/Clover/Radish</div>
+          <div class="lc-seller">🌱 SeedWorks · <span style="color:var(--g);font-weight:700">📍 Columbus, NE</span></div>
+          <div class="lc-stats"><span class="lc-stat">📦 2,000 lbs in stock</span><span class="lc-stat">👁 178 views</span></div>
+          <div class="lc-desc">Custom blended cover crop mix — winter rye 60%, crimson clover 25%, tillage radish 15%. Perfect for fall planting. Inoculant included with clover.</div>
+          <div class="lc-acts">
+            <button class="contact-btn" onclick="contactSeller('SeedWorks')">📩 Contact Seller</button>
+            <button class="save-listing-btn" onclick="saveListing(this,'Cover Crop Mix')">🔖</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- PROFILE -->
-  <div class="tab-body panel tc" id="panel-profile">
+  <div class="scroll panel tc" id="panel-profile">
     <div class="prof-hero">
       <div class="prof-av">🧑‍🌾</div>
       <div class="prof-name">John C.</div>
       <div class="prof-loc">📍 Pittsburgh, PA · Member since 2026</div>
       <div class="pstats">
-        <div class="ps"><div class="ps-n" id="statPosts">0</div><div class="ps-l">Posts</div></div>
-        <div class="ps"><div class="ps-n" id="statLikes">0</div><div class="ps-l">Liked</div></div>
-        <div class="ps"><div class="ps-n" id="statSaved">0</div><div class="ps-l">Saved</div></div>
-        <div class="ps"><div class="ps-n" id="statCart">0</div><div class="ps-l">In Cart</div></div>
+        <div class="ps"><div class="ps-n" id="sPosts">0</div><div class="ps-l">Posts</div></div>
+        <div class="ps"><div class="ps-n" id="sLikes">0</div><div class="ps-l">Liked</div></div>
+        <div class="ps"><div class="ps-n" id="sSaved">0</div><div class="ps-l">Saved</div></div>
+        <div class="ps"><div class="ps-n" id="sGrants">0</div><div class="ps-l">Grants</div></div>
       </div>
     </div>
     <div class="prof-body">
-      <div class="sub" style="margin-bottom:10px">🏅 Badges</div>
+      <div class="sec-hd">🏅 Badges</div>
       <div class="badges" id="badgeList">
-        <div class="pbadge"><div class="pb-icon">🌱</div><div><div class="pb-name">New Farmer</div><div class="pb-sub">Welcome to FarmRoot</div></div></div>
+        <div class="bdg"><div class="bdg-i">🌱</div><div><div class="bdg-n">New Farmer</div><div class="bdg-s">Welcome to FarmRoot</div></div></div>
       </div>
+      <div class="sec-hd">My Account</div>
       <div class="pmenu">
-        <div class="pmi" onclick="viewSavedPosts()"><div class="pmi-i">🔖</div><div class="pmi-l">Saved Posts (<span id="savedPostCount">0</span>)</div><div class="pmi-a">›</div></div>
-        <div class="pmi" onclick="viewSavedResources()"><div class="pmi-i">💰</div><div class="pmi-l">Saved Grants (<span id="savedResCount">0</span>)</div><div class="pmi-a">›</div></div>
-        <div class="pmi" onclick="openCart()"><div class="pmi-i">🛒</div><div class="pmi-l">Cart (<span id="cartCountProfile">0</span> items)</div><div class="pmi-a">›</div></div>
-        <div class="pmi" onclick="showNotifications()"><div class="pmi-i">🔔</div><div class="pmi-l">Notifications</div><div class="pmi-a">›</div></div>
-        <div class="pmi" onclick="showModal('settings')"><div class="pmi-i">⚙️</div><div class="pmi-l">Settings</div><div class="pmi-a">›</div></div>
-        <div class="pmi" onclick="showModal('about')"><div class="pmi-i">ℹ️</div><div class="pmi-l">About FarmRoot</div><div class="pmi-a">›</div></div>
+        <div class="pmi" onclick="viewSaved()"><div class="pmi-i">🔖</div><div class="pmi-l">Saved Posts (<span id="cSaved">0</span>)</div><div class="pmi-a">›</div></div>
+        <div class="pmi" onclick="viewGrants()"><div class="pmi-i">💰</div><div class="pmi-l">Saved Grants (<span id="cGrants">0</span>)</div><div class="pmi-a">›</div></div>
+        <div class="pmi" onclick="viewMyPosts()"><div class="pmi-i">📝</div><div class="pmi-l">My Posts (<span id="cPosts">0</span>)</div><div class="pmi-a">›</div></div>
+        <div class="pmi" onclick="openNotifs()"><div class="pmi-i">🔔</div><div class="pmi-l">Notifications (<span id="cNotifs">0</span>)</div><div class="pmi-a">›</div></div>
+        <div class="pmi" onclick="editProfile()"><div class="pmi-i">✏️</div><div class="pmi-l">Edit Profile</div><div class="pmi-a">›</div></div>
+        <div class="pmi" onclick="aboutModal()"><div class="pmi-i">ℹ️</div><div class="pmi-l">About FarmRoot</div><div class="pmi-a">›</div></div>
       </div>
     </div>
   </div>
@@ -569,79 +631,68 @@ button{cursor:pointer;font-family:inherit}
     <button class="tabb active" id="tb-feed" onclick="switchTab('feed')"><span class="ti">🏡</span><span class="tl">Feed</span></button>
     <button class="tabb" id="tb-learn" onclick="switchTab('learn')"><span class="ti">📚</span><span class="tl">Learn</span></button>
     <button class="tabb" id="tb-resources" onclick="switchTab('resources')"><span class="ti">💰</span><span class="tl">Resources</span></button>
-    <button class="tabb" id="tb-market" onclick="switchTab('market')"><span class="ti">🛒</span><span class="tl">Market</span><div class="cart-badge" id="cartBadge"></div></button>
+    <button class="tabb" id="tb-listings" onclick="switchTab('listings')"><span class="ti">🛒</span><span class="tl">Listings</span></button>
     <button class="tabb" id="tb-profile" onclick="switchTab('profile')"><span class="ti">👤</span><span class="tl">Profile</span></button>
   </div>
 </div>
 
 <script>
-// ===== STATE =====
+// ── STATE ──
 const S = {
-  cart: JSON.parse(localStorage.getItem('fr_cart')||'[]'),
-  likedPosts: JSON.parse(localStorage.getItem('fr_likes')||'[]'),
-  savedPosts: JSON.parse(localStorage.getItem('fr_saved_posts')||'[]'),
-  savedRes: JSON.parse(localStorage.getItem('fr_saved_res')||'[]'),
-  userPosts: JSON.parse(localStorage.getItem('fr_user_posts')||'[]'),
-  notifications: JSON.parse(localStorage.getItem('fr_notifs')||'["🌾 Welcome to FarmRoot!","💰 New grant available: ERP 2025 — up to $125,000","🤝 3 farmers in your area joined this week"]'),
+  likes: JSON.parse(localStorage.getItem('fr_likes')||'[]'),
+  saved: JSON.parse(localStorage.getItem('fr_saved')||'[]'),
+  grants: JSON.parse(localStorage.getItem('fr_grants')||'[]'),
+  listings: JSON.parse(localStorage.getItem('fr_listings')||'[]'),
+  posts: JSON.parse(localStorage.getItem('fr_posts')||'[]'),
+  notifs: JSON.parse(localStorage.getItem('fr_notifs')||'["🌾 Welcome to FarmRoot! Connect with farmers near you.","💰 New: ERP 2025 grant — up to $125,000 available","🤝 3 farmers in Pennsylvania joined this week"]'),
 };
-function save(key, val){ localStorage.setItem('fr_'+key, JSON.stringify(val)); }
+function save(k,v){localStorage.setItem('fr_'+k,JSON.stringify(v));}
 
-// ===== INIT =====
+// ── STARTUP ──
+window.onload = function(){
+  if(localStorage.getItem('fr_joined')){
+    document.getElementById('screen-onboard').classList.remove('active');
+    document.getElementById('screen-app').classList.add('active');
+    restoreState();
+  }
+};
 function enterApp(){
+  localStorage.setItem('fr_joined','1');
   document.getElementById('screen-onboard').classList.remove('active');
   document.getElementById('screen-app').classList.add('active');
   restoreState();
 }
 function restoreState(){
-  // restore likes
-  S.likedPosts.forEach(id => {
-    const post = document.querySelector(`[data-id="${id}"]`);
-    if(post){ const btn = post.querySelector('.pact'); if(btn) btn.classList.add('liked'); }
+  // Restore liked posts
+  S.likes.forEach(id=>{
+    const p = document.querySelector(`[data-id="${id}"]`);
+    if(p){const b=p.querySelector('.pact');if(b){b.classList.add('liked');b.innerHTML='❤️ <span>'+b.querySelector('span').textContent+'</span>';}}
   });
-  // restore saved
-  S.savedPosts.forEach(id => {
-    const post = document.querySelector(`[data-id="${id}"]`);
-    if(post){ const btn = post.querySelectorAll('.pact')[2]; if(btn){ btn.textContent='🔖 Saved'; btn.classList.add('saved'); } }
+  // Restore saved posts
+  S.saved.forEach(id=>{
+    const p = document.querySelector(`[data-id="${id}"]`);
+    if(p){const btns=p.querySelectorAll('.pact');if(btns[2])btns[2].classList.add('saved');}
   });
-  // restore saved resources
-  S.savedRes.forEach(name => {
-    document.querySelectorAll('.save-res-btn').forEach(btn => {
-      if(btn.getAttribute('onclick').includes(name)){ btn.textContent='✅ Saved'; btn.classList.add('saved-res'); }
+  // Restore saved grants
+  S.grants.forEach(name=>{
+    document.querySelectorAll('.save-btn').forEach(b=>{
+      if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes(name)){b.classList.add('saved');b.textContent='✅ Saved';}
     });
   });
-  updateCartUI();
-  updateStats();
+  // Restore saved listings
+  S.listings.forEach(name=>{
+    document.querySelectorAll('.save-listing-btn').forEach(b=>{
+      if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes(name)){b.classList.add('saved');b.textContent='✅';}
+    });
+  });
   renderUserPosts();
-  if(S.notifications.length > 0) document.getElementById('notifDot').style.display='block';
-}
-function updateStats(){
-  document.getElementById('statPosts').textContent = S.userPosts.length;
-  document.getElementById('statLikes').textContent = S.likedPosts.length;
-  document.getElementById('statSaved').textContent = S.savedPosts.length;
-  document.getElementById('statCart').textContent = S.cart.length;
-  document.getElementById('savedPostCount').textContent = S.savedPosts.length;
-  document.getElementById('savedResCount').textContent = S.savedRes.length;
-  document.getElementById('cartCountProfile').textContent = S.cart.length;
-  checkBadges();
-}
-function checkBadges(){
-  const badges = document.getElementById('badgeList');
-  const existing = [...badges.querySelectorAll('.pb-name')].map(b=>b.textContent);
-  const add = (icon,name,sub) => {
-    if(existing.includes(name)) return;
-    const d = document.createElement('div'); d.className='pbadge';
-    d.innerHTML=`<div class="pb-icon">${icon}</div><div><div class="pb-name">${name}</div><div class="pb-sub">${sub}</div></div>`;
-    badges.appendChild(d);
-  };
-  if(S.userPosts.length>=1) add('📝','First Post','Shared with the community');
-  if(S.likedPosts.length>=3) add('❤️','Supporter','Liked 3+ posts');
-  if(S.savedRes.length>=1) add('💰','Grant Hunter','Saved a resource');
-  if(S.cart.length>=1) add('🛒','Shopper','Added to cart');
+  updateStats();
+  if(S.notifs.length>0) document.getElementById('ndot').classList.add('show');
 }
 
-// ===== TAB NAVIGATION =====
+// ── TAB NAV ──
 function switchTab(t){
-  ['feed','learn','resources','market','profile'].forEach(n=>{
+  ['feed','learn','resources','listings','profile'].forEach(n=>{
     document.getElementById('panel-'+n).classList.remove('active');
     document.getElementById('tb-'+n).classList.remove('active');
   });
@@ -649,267 +700,225 @@ function switchTab(t){
   document.getElementById('tb-'+t).classList.add('active');
 }
 
-// ===== FEED ACTIONS =====
-function likePost(btn, id){
-  const liked = btn.classList.contains('liked');
-  const span = btn.querySelector('span');
-  const n = parseInt(span.textContent)||0;
-  if(liked){
-    btn.classList.remove('liked');
-    btn.innerHTML = '👍 <span>'+(n-1)+'</span>';
-    S.likedPosts = S.likedPosts.filter(x=>x!==id);
-  } else {
-    btn.classList.add('liked');
-    btn.innerHTML = '❤️ <span>'+(n+1)+'</span>';
-    if(!S.likedPosts.includes(id)) S.likedPosts.push(id);
-    toast('❤️ Liked!');
-  }
-  save('likes', S.likedPosts);
-  updateStats();
+// ── MODAL ──
+function showModal(html){ document.getElementById('modal-content').innerHTML=html; document.getElementById('modal').classList.add('open'); }
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+
+// ── STATS ──
+function updateStats(){
+  document.getElementById('sPosts').textContent = S.posts.length;
+  document.getElementById('sLikes').textContent = S.likes.length;
+  document.getElementById('sSaved').textContent = S.saved.length;
+  document.getElementById('sGrants').textContent = S.grants.length;
+  document.getElementById('cSaved').textContent = S.saved.length;
+  document.getElementById('cGrants').textContent = S.grants.length;
+  document.getElementById('cPosts').textContent = S.posts.length;
+  document.getElementById('cNotifs').textContent = S.notifs.length;
+  checkBadges();
 }
-function commentPost(id){
-  const c = prompt('Add a comment:');
-  if(c && c.trim()){
-    toast('💬 Comment posted!');
-    S.notifications.unshift(`💬 You commented on a post`);
-    save('notifs', S.notifications);
-  }
+function checkBadges(){
+  const bl = document.getElementById('badgeList');
+  const existing = [...bl.querySelectorAll('.bdg-n')].map(b=>b.textContent);
+  const add=(i,n,s)=>{
+    if(existing.includes(n))return;
+    const d=document.createElement('div');d.className='bdg';
+    d.innerHTML=`<div class="bdg-i">${i}</div><div><div class="bdg-n">${n}</div><div class="bdg-s">${s}</div></div>`;
+    bl.appendChild(d);
+  };
+  if(S.posts.length>=1) add('📝','First Post','Shared with the community');
+  if(S.likes.length>=3) add('❤️','Supporter','Liked 3+ posts');
+  if(S.grants.length>=1) add('💰','Grant Hunter','Saved a resource');
+  if(S.listings.length>=1) add('🛒','Marketplace','Saved a listing');
 }
-function savePost(btn, id){
-  const saved = btn.classList.contains('saved');
-  if(saved){
-    btn.classList.remove('saved'); btn.textContent='🔖 Save';
-    S.savedPosts = S.savedPosts.filter(x=>x!==id);
-    toast('🔖 Removed from saved');
-  } else {
-    btn.classList.add('saved'); btn.textContent='🔖 Saved';
-    if(!S.savedPosts.includes(id)) S.savedPosts.push(id);
-    toast('🔖 Post saved!');
-  }
-  save('saved_posts', S.savedPosts);
-  updateStats();
+
+// ── FEED ──
+function likePost(btn,id){
+  const liked=btn.classList.contains('liked');
+  const sp=btn.querySelector('span');
+  const n=parseInt(sp.textContent)||0;
+  if(liked){btn.classList.remove('liked');btn.innerHTML='👍 <span>'+(n-1)+'</span>';S.likes=S.likes.filter(x=>x!==id);}
+  else{btn.classList.add('liked');btn.innerHTML='❤️ <span>'+(n+1)+'</span>';if(!S.likes.includes(id))S.likes.push(id);toast('❤️ Liked!');}
+  save('likes',S.likes); updateStats();
 }
-function sharePost(){
-  if(navigator.share){ navigator.share({title:'FarmRoot',text:'Check out this post on FarmRoot!',url:location.href}); }
-  else { navigator.clipboard.writeText(location.href).then(()=>toast('🔗 Link copied!')); }
+function commentOn(id,name){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">💬 Reply to ${name}</div><div class="m-sub">Your comment will be shared publicly</div><div class="post-modal-form"><textarea class="pf-input" rows="4" placeholder="Write your reply..." id="commentText"></textarea><button class="pf-submit" onclick="submitComment('${name}')">Post Reply →</button></div>`);
 }
-function showPostMenu(btn){
-  const options = ['📤 Share post','🔕 Mute user','🚨 Report post'];
-  const choice = prompt('Options:\n1. Share post\n2. Mute user\n3. Report post\n\nEnter number:');
-  if(choice==='1') sharePost();
-  else if(choice==='3') toast('🚨 Reported — thank you');
+function submitComment(name){
+  const t=document.getElementById('commentText');
+  if(!t||!t.value.trim()){toast('✍️ Write something first!');return;}
+  S.notifs.unshift(`💬 You replied to ${name}`);save('notifs',S.notifs);
+  closeModal(); toast('💬 Comment posted!'); updateStats();
+}
+function savePost(btn,id){
+  const saved=btn.classList.contains('saved');
+  if(saved){btn.classList.remove('saved');S.saved=S.saved.filter(x=>x!==id);toast('🔖 Removed');}
+  else{btn.classList.add('saved');if(!S.saved.includes(id))S.saved.push(id);toast('🔖 Post saved!');}
+  save('saved',S.saved); updateStats();
+}
+function sharePost(name){
+  if(navigator.share){navigator.share({title:'FarmRoot',text:`Check out this post from ${name} on FarmRoot!`,url:location.href});}
+  else{navigator.clipboard&&navigator.clipboard.writeText(location.href).then(()=>toast('🔗 Link copied!'));}
+}
+function postMenu(id){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">Post Options</div><div class="pmenu" style="margin-top:12px"><div class="pmi" onclick="sharePost('this farmer');closeModal()"><div class="pmi-i">📤</div><div class="pmi-l">Share Post</div></div><div class="pmi" onclick="closeModal();toast('🚫 User muted')"><div class="pmi-i">🔕</div><div class="pmi-l">Mute User</div></div><div class="pmi" onclick="closeModal();toast('🚨 Reported — thank you')"><div class="pmi-i">🚨</div><div class="pmi-l">Report Post</div></div></div>`);
+}
+function viewStory(name,emoji){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div style="text-align:center;padding:20px 0"><div style="font-size:72px">${emoji}</div><div class="m-title" style="text-align:center;margin-top:12px">${name}</div><div style="font-size:14px;color:var(--muted);text-align:center;margin-top:6px">Story from today</div><div style="font-size:14px;line-height:1.6;margin-top:20px;text-align:left">Shared an update about their farm operations. Tap below to follow their journey on FarmRoot.</div></div><button class="m-link" onclick="closeModal();toast('✅ Following ${name}!')">Follow ${name} →</button>`);
+}
+function openComposeModal(){
+  document.getElementById('composeInput').blur();
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">📝 New Post</div><div class="m-sub">Share with the FarmRoot community</div><div class="post-modal-form"><textarea class="pf-input" rows="5" placeholder="What's happening on your farm?" id="postText"></textarea><div class="pf-row"><select class="pf-select" id="postCategory"><option value="">📌 Category</option><option>🌽 Crops</option><option>🐄 Livestock</option><option>🌿 Organic</option><option>💧 Irrigation</option><option>🌍 Soil Health</option><option>💰 Business</option><option>🚜 Equipment</option><option>🌾 General</option></select><select class="pf-select" id="postLocation"><option value="">📍 Location</option><option>Pittsburgh, PA</option><option>My Farm</option><option>National</option></select></div><button class="pf-submit" onclick="submitPost()">Post to Community →</button></div>`);
 }
 function submitPost(){
-  const input = document.getElementById('composeInput');
-  const text = input.value.trim();
-  if(!text){ toast('✍️ Write something first!'); return; }
-  const id = 'user_'+Date.now();
-  const post = {id, text, time: new Date().toISOString()};
-  S.userPosts.unshift(post);
-  save('user_posts', S.userPosts);
-  const div = document.createElement('div');
-  div.className='post'; div.setAttribute('data-id', id);
-  div.innerHTML=`<div class="ph"><div class="pav">🧑‍🌾</div><div class="pi"><div class="pn">John C.</div><div class="pl">📍 Pittsburgh, PA · Just now</div></div></div><div class="pb" style="padding-top:10px"><div class="pt">${text}</div></div><div class="pacts"><button class="pact" onclick="likePost(this,'${id}')">👍 <span>0</span></button><button class="pact" onclick="commentPost('${id}')">💬 <span>0</span></button><button class="pact" onclick="savePost(this,'${id}')">🔖 Save</button></div>`;
+  const t=document.getElementById('postText');
+  const cat=document.getElementById('postCategory');
+  const loc=document.getElementById('postLocation');
+  if(!t||!t.value.trim()){toast('✍️ Write something first!');return;}
+  const text=t.value.trim();
+  const catV=cat?cat.value||'🌾 General':'🌾 General';
+  const locV=loc?loc.value||'Pittsburgh, PA':'Pittsburgh, PA';
+  const id='u'+Date.now();
+  S.posts.unshift({id,text,cat:catV,loc:locV,time:new Date().toISOString()});
+  save('posts',S.posts);
+  const div=document.createElement('div');div.className='post';div.setAttribute('data-id',id);
+  div.innerHTML=`<div class="post-hd"><div class="pav">🧑‍🌾</div><div class="pinfo"><div class="pname">John C. <span class="pbadge">${catV}</span></div><div class="ploc">📍 ${locV} · Just now</div></div></div><div class="post-body" style="padding-top:10px"><div class="post-txt">${text}</div></div><div class="pacts"><button class="pact" onclick="likePost(this,'${id}')">👍 <span>0</span></button><button class="pact" onclick="commentOn('${id}','John C.')">💬 <span>0</span></button><button class="pact" onclick="savePost(this,'${id}')">🔖 <span>Save</span></button><button class="pact" onclick="sharePost('John C.')">↗️ <span>Share</span></button></div>`;
   document.getElementById('postList').prepend(div);
-  input.value='';
-  toast('✅ Posted to the community!');
-  updateStats();
+  closeModal(); toast('✅ Posted to the community!'); updateStats();
 }
 function renderUserPosts(){
-  const list = document.getElementById('postList');
-  S.userPosts.forEach(p=>{
+  S.posts.forEach(p=>{
     if(document.querySelector(`[data-id="${p.id}"]`)) return;
     const div=document.createElement('div');div.className='post';div.setAttribute('data-id',p.id);
-    div.innerHTML=`<div class="ph"><div class="pav">🧑‍🌾</div><div class="pi"><div class="pn">John C.</div><div class="pl">📍 Pittsburgh, PA · Saved</div></div></div><div class="pb" style="padding-top:10px"><div class="pt">${p.text}</div></div><div class="pacts"><button class="pact" onclick="likePost(this,'${p.id}')">👍 <span>0</span></button><button class="pact">💬 <span>0</span></button><button class="pact" onclick="savePost(this,'${p.id}')">🔖 Save</button></div>`;
-    list.prepend(div);
+    div.innerHTML=`<div class="post-hd"><div class="pav">🧑‍🌾</div><div class="pinfo"><div class="pname">John C. <span class="pbadge">${p.cat}</span></div><div class="ploc">📍 ${p.loc}</div></div></div><div class="post-body" style="padding-top:10px"><div class="post-txt">${p.text}</div></div><div class="pacts"><button class="pact" onclick="likePost(this,'${p.id}')">👍 <span>0</span></button><button class="pact" onclick="commentOn('${p.id}','John C.')">💬 <span>0</span></button><button class="pact" onclick="savePost(this,'${p.id}')">🔖 <span>Save</span></button><button class="pact" onclick="sharePost('John C.')">↗️ <span>Share</span></button></div>`;
+    document.getElementById('postList').prepend(div);
   });
 }
 
-// ===== LEARN =====
-const learnContent = {
-  'spring-planting': {title:'Spring Planting Guide 2026',body:`<p>Spring planting success starts 6 weeks before last frost. Here's the complete breakdown:</p><ul><li><strong>Soil temp check:</strong> Corn needs 55°F+, soybeans 50°F+, vegetables 45°F+</li><li><strong>Soil prep:</strong> Till to 8–10 inches, add compost at 2–4 inches per acre</li><li><strong>Seed selection:</strong> Choose varieties rated for your USDA hardiness zone</li><li><strong>Planting depth:</strong> Corn 1.5–2in, soybeans 1–1.5in, cover crops 0.5in</li><li><strong>Row spacing:</strong> Corn 30in, soybeans 15–30in depending on equipment</li></ul><p>Monitor soil moisture daily for first 2 weeks. Target 50–70% field capacity.</p>`,url:'https://www.nrcs.usda.gov/wps/portal/nrcs/main/national/plants/'},
-  'drip-irrigation': {title:'Drip Irrigation Setup',body:`<p>Drip irrigation can reduce water usage by up to 50% vs overhead sprinklers. Setup for small farms:</p><ul><li><strong>Main line:</strong> 3/4" poly tubing from water source to field</li><li><strong>Sub-main:</strong> 1/2" tubing down each row</li><li><strong>Emitters:</strong> 0.5–1.0 GPH drippers every 12–18 inches</li><li><strong>Filter:</strong> 155-mesh screen filter at head</li><li><strong>Pressure regulator:</strong> Set to 25 PSI for drip emitters</li></ul><p>Run 1–2 hours daily during peak season. Check emitters weekly for clogging.</p>`,url:'https://www.nal.usda.gov/exhibits/ipd/drip/'},
-  'soil-ph': {title:'Soil pH Testing & Improvement',body:`<p>Optimal soil pH is 6.0–7.0 for most crops. Here's how to test and fix:</p><ul><li><strong>Test method:</strong> Send samples to your county extension office ($15–20) or use DIY kit</li><li><strong>Too acidic (pH &lt; 6):</strong> Apply agricultural lime at 1–2 tons/acre</li><li><strong>Too alkaline (pH &gt; 7.5):</strong> Apply elemental sulfur at 5–10 lbs/1000 sq ft</li><li><strong>Retest:</strong> Every 2–3 years, or annually on problem areas</li></ul><p>Amendments take 3–6 months to fully adjust pH. Plan ahead of planting season.</p>`,url:'https://extension.umn.edu/soil-and-water/soil-ph'},
-  'pest-control': {title:'Common Crop Pest ID & Treatment',body:`<p>Early identification prevents major losses. Key pests by crop:</p><ul><li><strong>Corn:</strong> Corn rootworm (Bt seed treatment), Aphids (neem oil or pyrethrin)</li><li><strong>Soybeans:</strong> Bean leaf beetle (kaolin clay), Soybean aphid (beneficial insects)</li><li><strong>Vegetables:</strong> Cutworms (Bt kurstaki), Whitefly (insecticidal soap)</li><li><strong>All crops:</strong> Scout weekly during growing season — catch early!</li></ul><p>Integrated Pest Management (IPM) first: biological controls before chemicals.</p>`,url:'https://ipm.ucanr.edu/'},
-  'usda-loans': {title:'USDA Farm Loan Application',body:`<p>Step-by-step guide to FSA loan applications:</p><ul><li><strong>Step 1:</strong> Contact your local FSA office — find at farmers.gov/contact</li><li><strong>Step 2:</strong> Complete Form FSA-2001 (Request for Direct Loan)</li><li><strong>Step 3:</strong> Gather: 3 years tax returns, balance sheet, farm business plan</li><li><strong>Step 4:</strong> Submit application — processing takes 60 days</li><li><strong>Step 5:</strong> Loan closing with FSA loan officer</li></ul><p>Beginning farmer? You get priority processing and lower interest rates (currently 4.875% for operating loans).</p>`,url:'https://www.farmers.gov/loans'},
-  'go-organic': {title:'Transitioning to Organic: Year 1',body:`<p>USDA Organic certification requires a 3-year transition period. Year 1 plan:</p><ul><li><strong>Stop:</strong> All synthetic fertilizers and prohibited pesticides immediately</li><li><strong>Start:</strong> Building organic matter with cover crops and compost</li><li><strong>Document:</strong> Keep records of EVERYTHING — inputs, practices, yields</li><li><strong>Apply:</strong> Contact a USDA-accredited certifier early (list at ams.usda.gov)</li><li><strong>Cost:</strong> Expect $400–$1,200/year for certification fees</li></ul><p>USDA Cost Share: Up to 75% of certification costs reimbursed through NRCS EQIP.</p>`,url:'https://www.ams.usda.gov/services/organic-certification'},
-  'tractor-maintenance': {title:'Tractor Maintenance Schedule',body:`<p>Regular maintenance prevents costly breakdowns. Follow this schedule:</p><ul><li><strong>Daily:</strong> Check engine oil, coolant, tire pressure, lights</li><li><strong>Every 50 hours:</strong> Grease all fittings (15–20 points typical)</li><li><strong>Every 100 hours:</strong> Engine oil & filter change</li><li><strong>Every 250 hours:</strong> Air filter, hydraulic filter, fuel filter</li><li><strong>Annually:</strong> Full inspection, coolant flush, transmission service</li></ul><p>Keep a maintenance log. Well-maintained tractors last 10,000+ hours.</p>`,url:'https://www.extension.iastate.edu/agdm/'},
-  'cover-crops': {title:'Cover Crops for Healthy Soil',body:`<p>Cover crops improve soil health, prevent erosion, and reduce input costs:</p><ul><li><strong>Winter rye:</strong> Best cold-hardiness, plant Sept–Oct, kill in spring</li><li><strong>Crimson clover:</strong> Fixes 80–150 lbs nitrogen/acre, great before corn</li><li><strong>Radishes:</strong> Breaks compaction with deep taproot, winter-kills</li><li><strong>Cereal oats:</strong> Fast establishment, terminates at first frost</li></ul><p>Mix 2–3 species for best results. EQIP pays $35–60/acre for cover crop establishment.</p>`,url:'https://www.sare.org/resources/managing-cover-crops-profitably/'},
+// ── LEARN ──
+const GUIDES = {
+  spring:{title:'Spring Planting Guide 2026',url:'https://www.nrcs.usda.gov',body:'<p>Spring planting success starts 6 weeks before last frost.</p><ul><li><strong>Soil temp:</strong> Corn 55°F+, soybeans 50°F+, vegetables 45°F+</li><li><strong>Soil prep:</strong> Till 8–10 inches, add compost 2–4 in/acre</li><li><strong>Planting depth:</strong> Corn 1.5–2in, soybeans 1–1.5in</li><li><strong>Row spacing:</strong> Corn 30in, soybeans 15–30in</li></ul><p>Monitor soil moisture daily for first 2 weeks. Target 50–70% field capacity.</p>'},
+  irrigation:{title:'Drip Irrigation for Small Farms',url:'https://www.nal.usda.gov/exhibits/ipd/drip/',body:'<p>Drip irrigation reduces water usage by up to 50% vs overhead sprinklers.</p><ul><li><strong>Main line:</strong> 3/4" poly tubing from water source</li><li><strong>Sub-main:</strong> 1/2" tubing down each row</li><li><strong>Emitters:</strong> 0.5–1.0 GPH every 12–18 inches</li><li><strong>Filter:</strong> 155-mesh screen at head</li><li><strong>Pressure:</strong> Regulator set to 25 PSI</li></ul><p>Run 1–2 hours daily during peak season. Check emitters weekly.</p>'},
+  'soil-ph':{title:'Soil pH Testing & Improvement',url:'https://extension.umn.edu/soil-and-water/soil-ph',body:'<p>Optimal soil pH is 6.0–7.0 for most crops.</p><ul><li><strong>Test method:</strong> County extension office ($15–20) or DIY kit</li><li><strong>Too acidic (pH &lt; 6):</strong> Apply ag lime at 1–2 tons/acre</li><li><strong>Too alkaline (&gt; 7.5):</strong> Elemental sulfur 5–10 lbs/1000 sq ft</li><li><strong>Retest:</strong> Every 2–3 years</li></ul>'},
+  pests:{title:'Common Crop Pest ID & Treatment',url:'https://ipm.ucanr.edu/',body:'<p>Early identification prevents major losses.</p><ul><li><strong>Corn rootworm:</strong> Bt seed treatment</li><li><strong>Aphids:</strong> Neem oil or pyrethrin spray</li><li><strong>Cutworms:</strong> Bacillus thuringiensis (Bt)</li><li><strong>Whitefly:</strong> Insecticidal soap</li></ul><p>Scout weekly. Use IPM — biological controls before chemicals.</p>'},
+  loans:{title:'USDA Farm Loan Application',url:'https://www.farmers.gov/loans',body:'<p>Step-by-step FSA loan application guide:</p><ul><li><strong>Step 1:</strong> Contact local FSA office at farmers.gov/contact</li><li><strong>Step 2:</strong> Complete Form FSA-2001</li><li><strong>Step 3:</strong> Gather 3 years tax returns + business plan</li><li><strong>Step 4:</strong> Submit — processing ~60 days</li></ul><p>Beginning farmers get priority + lower rates (currently 4.875%).</p>'},
+  organic:{title:'Going Organic: Year 1 Plan',url:'https://www.ams.usda.gov/services/organic-certification',body:'<p>USDA certification requires a 3-year transition.</p><ul><li><strong>Stop:</strong> All synthetic fertilizers and prohibited pesticides</li><li><strong>Start:</strong> Cover crops and compost programs</li><li><strong>Document:</strong> Record EVERYTHING — inputs, practices, yields</li><li><strong>Apply:</strong> Contact USDA-accredited certifier early</li><li><strong>Cost:</strong> $400–$1,200/year (up to 75% USDA cost share via EQIP)</li></ul>'},
+  tractor:{title:'Tractor Maintenance Schedule',url:'https://www.extension.iastate.edu/agdm/',body:'<p>Regular maintenance prevents costly breakdowns.</p><ul><li><strong>Daily:</strong> Engine oil, coolant, tire pressure, lights</li><li><strong>Every 50 hrs:</strong> Grease all fittings (15–20 points)</li><li><strong>Every 100 hrs:</strong> Engine oil & filter change</li><li><strong>Every 250 hrs:</strong> Air filter, hydraulic filter, fuel filter</li><li><strong>Annually:</strong> Full inspection, coolant flush, transmission</li></ul>'},
+  cover:{title:'Cover Crops for Healthy Soil',url:'https://www.sare.org/resources/managing-cover-crops-profitably/',body:'<p>Cover crops improve soil health and reduce input costs.</p><ul><li><strong>Winter rye:</strong> Best cold-hardiness, plant Sept–Oct</li><li><strong>Crimson clover:</strong> Fixes 80–150 lbs nitrogen/acre</li><li><strong>Radishes:</strong> Breaks compaction, winter-kills cleanly</li><li><strong>Cereal oats:</strong> Fast establishment, terminates at frost</li></ul><p>EQIP pays $35–60/acre for cover crop establishment.</p>'},
+  markets:{title:'Selling at Farmers Markets',url:'https://www.ams.usda.gov/local-food-sector/farmers-markets',body:'<p>Farmers markets can double your margin vs wholesale.</p><ul><li><strong>Find your market:</strong> USDA Market Directory at ams.usda.gov</li><li><strong>Permits:</strong> Check state cottage food laws for processed goods</li><li><strong>Display:</strong> Height, signage, price cards are key to sales</li><li><strong>Pricing:</strong> Know your cost of production — price above it</li><li><strong>Accept cards:</strong> Square or Stripe reader — increases sales 30%</li></ul>'},
 };
-function openLearnModal(key){
-  const c = learnContent[key];
-  if(!c) return;
-  document.getElementById('modalContent').innerHTML=`<button class="modal-close" onclick="closeModal()">✕</button><div class="modal-handle"></div><div class="fl-cat">📖 Guide</div><div class="modal-title">${c.title}</div><div class="modal-sub">FarmRoot Learning</div><div class="modal-body">${c.body}</div><a class="modal-link" href="${c.url}" target="_blank" rel="noopener">Read Full Resource →</a>`;
-  document.getElementById('contentModal').classList.add('open');
+function openLearn(key){
+  const g=GUIDES[key];if(!g)return;
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">📖 Guide</div><div class="m-title">${g.title}</div><div class="m-sub">FarmRoot Learning Center</div><div class="mbody">${g.body}</div><a class="m-link" href="${g.url}" target="_blank">Read Full Resource on USDA.gov →</a>`);
 }
 function filterLearn(q){
-  const rows = document.querySelectorAll('#learnList .lrow');
-  const lower = q.toLowerCase();
-  rows.forEach(r=>{ r.style.display = r.textContent.toLowerCase().includes(lower) ? '' : 'none'; });
+  document.querySelectorAll('#learnList .lrow').forEach(r=>{ r.style.display=r.textContent.toLowerCase().includes(q.toLowerCase())?'':'none'; });
 }
-function filterLearnCat(btn, cat){
-  document.querySelectorAll('.cat').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#learnList .lrow').forEach(r=>{
-    r.style.display = (cat==='all' || r.getAttribute('data-cat')===cat) ? '' : 'none';
-  });
+function learnCat(btn,cat){
+  document.querySelectorAll('.chips .chip').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('#learnList .lrow').forEach(r=>{ r.style.display=(cat==='all'||r.getAttribute('data-cat')===cat)?'':'none'; });
 }
 
-// ===== RESOURCES =====
-function saveResource(btn, name){
-  const saved = btn.classList.contains('saved-res');
-  if(saved){
-    btn.classList.remove('saved-res'); btn.textContent='🔖 Save for Later';
-    S.savedRes = S.savedRes.filter(x=>x!==name);
-    toast('🔖 Removed from saved');
-  } else {
-    btn.classList.add('saved-res'); btn.textContent='✅ Saved';
-    if(!S.savedRes.includes(name)) S.savedRes.push(name);
-    toast('💰 Grant saved to your profile!');
-    S.notifications.unshift(`💰 You saved: ${name}`);
-    save('notifs', S.notifications);
-  }
-  save('saved_res', S.savedRes);
-  updateStats();
+// ── RESOURCES ──
+function saveRes(btn,name){
+  const s=btn.classList.contains('saved');
+  if(s){btn.classList.remove('saved');btn.textContent='🔖 Save for Later';S.grants=S.grants.filter(x=>x!==name);toast('Removed from saved');}
+  else{btn.classList.add('saved');btn.textContent='✅ Saved';if(!S.grants.includes(name))S.grants.push(name);toast('💰 Grant saved to profile!');S.notifs.unshift(`💰 Saved: ${name}`);save('notifs',S.notifs);}
+  save('grants',S.grants); updateStats();
 }
 function filterRes(q){
-  const cards = document.querySelectorAll('#resList .rcard');
-  const lower = q.toLowerCase();
-  cards.forEach(c=>{ c.style.display = (c.getAttribute('data-keywords').includes(lower) || c.textContent.toLowerCase().includes(lower)) ? '' : 'none'; });
+  document.querySelectorAll('#resList .rcard').forEach(c=>{ c.style.display=(c.getAttribute('data-kw').includes(q.toLowerCase())||c.textContent.toLowerCase().includes(q.toLowerCase()))?'':'none'; });
 }
-function filterResTab(btn, type){
-  document.querySelectorAll('.rtab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#resList .rcard').forEach(c=>{
-    c.style.display = (type==='all' || c.getAttribute('data-type')===type) ? '' : 'none';
-  });
+function resTab(btn,type){
+  document.querySelectorAll('.rtab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('#resList .rcard').forEach(c=>{ c.style.display=(type==='all'||c.getAttribute('data-type')===type)?'':'none'; });
 }
 
-// ===== MARKET / CART =====
-function addToCart(btn, name, emoji, price){
-  const inCart = btn.classList.contains('in-cart');
-  if(inCart){
-    S.cart = S.cart.filter(x=>x.name!==name);
-    btn.classList.remove('in-cart'); btn.textContent='+';
-    toast('🛒 Removed from cart');
-  } else {
-    S.cart.push({name, emoji, price});
-    btn.classList.add('in-cart'); btn.textContent='✓';
-    toast(`🛒 ${name} added!`);
-  }
-  save('cart', S.cart);
-  updateCartUI();
-  updateStats();
+// ── LISTINGS ──
+function contactSeller(name){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">📩 Contact ${name}</div><div class="m-sub">Send a message directly to this seller</div><div class="post-modal-form"><textarea class="pf-input" rows="4" placeholder="Hi, I'm interested in your listing..." id="msgText"></textarea><input class="pf-input" placeholder="Your phone number (optional)" type="tel"><button class="pf-submit" onclick="sendMsg('${name}')">Send Message →</button></div>`);
 }
-function updateCartUI(){
-  const badge = document.getElementById('cartBadge');
-  const n = S.cart.length;
-  if(n>0){ badge.textContent=n; badge.classList.add('show'); }
-  else { badge.classList.remove('show'); }
-  // Re-render cart items
-  const items = document.getElementById('cartItems');
-  if(S.cart.length===0){ items.innerHTML='<div class="empty-cart">🛒<br><br>Your cart is empty.<br>Browse the market to add items.</div>'; }
-  else {
-    items.innerHTML = S.cart.map((item,i)=>`
-      <div class="cart-item">
-        <div class="ci-emoji">${item.emoji}</div>
-        <div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-price">$${item.price.toFixed(2)}</div></div>
-        <button class="ci-remove" onclick="removeFromCart(${i})">🗑️</button>
-      </div>`).join('');
-  }
-  const total = S.cart.reduce((s,x)=>s+x.price, 0);
-  document.getElementById('cartTotal').textContent = '$'+total.toFixed(2);
+function sendMsg(name){
+  const t=document.getElementById('msgText');
+  if(!t||!t.value.trim()){toast('✍️ Write a message first!');return;}
+  closeModal(); toast(`✅ Message sent to ${name}!`);
+  S.notifs.unshift(`📩 You messaged ${name}`); save('notifs',S.notifs); updateStats();
 }
-function removeFromCart(i){
-  const name = S.cart[i].name;
-  S.cart.splice(i,1);
-  save('cart', S.cart);
-  updateCartUI();
-  updateStats();
-  // un-highlight add button
-  document.querySelectorAll('.add-btn.in-cart').forEach(btn=>{
-    if(btn.closest('.mcard')?.querySelector('.mc-title')?.textContent.toLowerCase().includes(name.split(' ')[0].toLowerCase())){
-      btn.classList.remove('in-cart'); btn.textContent='+';
-    }
-  });
-  toast('🗑️ Removed');
+function saveListing(btn,name){
+  const s=btn.classList.contains('saved');
+  if(s){btn.classList.remove('saved');btn.textContent='🔖';S.listings=S.listings.filter(x=>x!==name);toast('Removed');}
+  else{btn.classList.add('saved');btn.textContent='✅';if(!S.listings.includes(name))S.listings.push(name);toast(`🔖 ${name} saved!`);}
+  save('listings',S.listings); updateStats();
 }
-function openCart(){ document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); }
-function closeCart(){ document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartDrawer').classList.remove('open'); }
-function checkout(){
-  if(S.cart.length===0){ toast('🛒 Cart is empty!'); return; }
-  toast('✅ Order placed! Farmers will contact you.');
-  S.notifications.unshift('✅ Your order was placed successfully!');
-  save('notifs', S.notifications);
-  S.cart=[];
-  save('cart', S.cart);
-  // reset add buttons
-  document.querySelectorAll('.add-btn.in-cart').forEach(b=>{ b.classList.remove('in-cart'); b.textContent='+'; });
-  updateCartUI(); updateStats(); closeCart();
+function filterListings(q){
+  document.querySelectorAll('#listingsList .listing-card').forEach(c=>{ c.style.display=c.getAttribute('data-name').includes(q.toLowerCase())||c.textContent.toLowerCase().includes(q.toLowerCase())?'':'none'; });
 }
-function filterMarket(q){
-  const lower = q.toLowerCase();
-  document.querySelectorAll('#marketGrid .mcard').forEach(c=>{
-    c.setAttribute('data-hidden', !c.getAttribute('data-name').includes(lower) && !c.textContent.toLowerCase().includes(lower) ? 'true' : 'false');
-  });
+function listCat(btn,cat){
+  document.querySelectorAll('#panel-listings .chip').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('#listingsList .listing-card').forEach(c=>{ c.style.display=(cat==='all'||c.getAttribute('data-cat')===cat)?'':'none'; });
 }
-function filterMarketCat(btn, cat){
-  document.querySelectorAll('.fchip').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#marketGrid .mcard').forEach(c=>{
-    c.setAttribute('data-hidden', (cat!=='all' && c.getAttribute('data-cat')!==cat) ? 'true' : 'false');
-  });
+function openPostListing(){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">🛒 Post a Listing</div><div class="m-sub">Reach thousands of farmers</div><div class="post-modal-form"><input class="pf-input" placeholder="Title (e.g. Organic Tomatoes — 50 lbs)" id="ltitle"><textarea class="pf-input" rows="3" placeholder="Description, quantity, condition..." id="ldesc"></textarea><div class="pf-row"><select class="pf-select" id="lcat"><option>🥕 Produce</option><option>🚜 Equipment</option><option>🌱 Seeds</option><option>🐄 Livestock</option><option>🏡 Land</option></select><input class="pf-input" placeholder="Price (e.g. $4.50/lb)" id="lprice" style="flex:1"></div><input class="pf-input" placeholder="Your location (City, State)" id="lloc"><button class="pf-submit" onclick="submitListing()">Post Listing →</button></div>`);
+}
+function submitListing(){
+  const title=document.getElementById('ltitle');
+  const desc=document.getElementById('ldesc');
+  if(!title||!title.value.trim()){toast('Add a title!');return;}
+  closeModal(); toast('✅ Listing posted!');
+  S.notifs.unshift('🛒 Your listing is live on FarmRoot!'); save('notifs',S.notifs); updateStats();
 }
 
-// ===== NOTIFICATIONS =====
-function showNotifications(){
-  document.getElementById('notifDot').style.display='none';
-  if(S.notifications.length===0){ toast('🔔 No new notifications'); return; }
-  const list = S.notifications.slice(0,8).map(n=>`<p style="padding:10px 0;border-bottom:1px solid var(--border);font-size:14px">${n}</p>`).join('');
-  document.getElementById('modalContent').innerHTML=`<button class="modal-close" onclick="closeModal()">✕</button><div class="modal-handle"></div><div class="modal-title">🔔 Notifications</div><div class="modal-sub">${S.notifications.length} new</div><div class="modal-body">${list}</div><button class="modal-link" onclick="S.notifications=[];save('notifs',S.notifications);closeModal();toast('🔔 All cleared')">Clear All</button>`;
-  document.getElementById('contentModal').classList.add('open');
+// ── NOTIFICATIONS ──
+function openNotifs(){
+  document.getElementById('ndot').classList.remove('show');
+  if(S.notifs.length===0){toast('🔔 No notifications');return;}
+  const items=S.notifs.slice(0,10).map(n=>`<div style="padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.5">${n}</div>`).join('');
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">🔔 Notifications</div><div class="m-sub">${S.notifs.length} notification${S.notifs.length!==1?'s':''}</div><div>${items}</div><button class="m-link" style="background:var(--bg);color:var(--g);border:2px solid var(--g);margin-top:14px" onclick="S.notifs=[];save('notifs',S.notifs);document.getElementById('cNotifs').textContent=0;closeModal();toast('🔔 Cleared')">Clear All</button>`);
+}
+function openSearch(){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">🔍 Search FarmRoot</div><div class="m-sub">Search posts, grants, listings</div><div class="post-modal-form"><input class="pf-input" placeholder="Search..." id="globalSearch" oninput="doSearch(this.value)" autofocus></div><div id="searchResults" style="margin-top:8px"></div>`);
+  setTimeout(()=>{ const i=document.getElementById('globalSearch'); if(i)i.focus(); },200);
+}
+function doSearch(q){
+  const r=document.getElementById('searchResults');
+  if(!q||q.length<2){r.innerHTML='';return;}
+  const lower=q.toLowerCase();
+  const results=[];
+  if('emergency relief erp grant'.includes(lower)||lower.includes('grant'))results.push({icon:'💰',title:'ERP 2025 Grant — Up to $125,000',sub:'Resources tab',action:"closeModal();switchTab('resources')"});
+  if('corn planting iowa farmer'.includes(lower)||lower.includes('corn'))results.push({icon:'🌽',title:'Tom Brewer — Corn Planting Update',sub:'Feed tab',action:"closeModal();switchTab('feed')"});
+  if('drip irrigation water'.includes(lower))results.push({icon:'💧',title:'Drip Irrigation Setup Guide',sub:'Learn tab',action:"closeModal();openLearn('irrigation')"});
+  if('tractor rental equipment'.includes(lower))results.push({icon:'🚜',title:'John Deere 6120M — Rental Listing',sub:'Listings tab',action:"closeModal();switchTab('listings')"});
+  if(results.length===0){r.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:14px">No results found</div>';return;}
+  r.innerHTML=results.map(x=>`<div class="lrow" onclick="${x.action}" style="margin-bottom:8px"><div class="li-ic li-g" style="width:44px;height:44px;font-size:22px">${x.icon}</div><div class="lb"><div class="ltit">${x.title}</div><div class="lmeta"><span>${x.sub}</span></div></div><div class="larr">›</div></div>`).join('');
 }
 
-// ===== PROFILE VIEWS =====
-function viewSavedPosts(){
-  const content = S.savedPosts.length===0 ? '<p>No saved posts yet. Tap 🔖 on any post to save it.</p>' : `<p>You have ${S.savedPosts.length} saved post(s).</p><p style="color:var(--muted);font-size:13px">Go to Feed to view them.</p>`;
-  showInfoModal('🔖 Saved Posts', content);
+// ── PROFILE VIEWS ──
+function viewSaved(){
+  const html=S.saved.length===0?'<p>No saved posts yet. Tap 🔖 on any post in your Feed.</p>':`<p>${S.saved.length} saved post(s). Go to Feed to view them.</p>`;
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">🔖 Saved Posts</div><div class="mbody" style="margin-top:12px">${html}</div>`);
 }
-function viewSavedResources(){
-  const content = S.savedRes.length===0 ? '<p>No saved grants yet. Go to Resources tab and tap 🔖 Save on any grant.</p>' : `<ul>${S.savedRes.map(r=>`<li style="padding:8px 0;border-bottom:1px solid var(--border)">${r}</li>`).join('')}</ul>`;
-  showInfoModal('💰 Saved Grants', content);
+function viewGrants(){
+  const html=S.grants.length===0?'<p>No saved grants yet. Go to Resources tab and tap 🔖 Save on any grant.</p>':`<ul>${S.grants.map(r=>`<li style="padding:8px 0;border-bottom:1px solid var(--border)">${r}</li>`).join('')}</ul>`;
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">💰 Saved Grants</div><div class="mbody" style="margin-top:12px">${html}<a class="m-link" onclick="closeModal();switchTab('resources')">Browse More Grants →</a></div>`);
 }
-function showInfoModal(title, content){
-  document.getElementById('modalContent').innerHTML=`<button class="modal-close" onclick="closeModal()">✕</button><div class="modal-handle"></div><div class="modal-title">${title}</div><div class="modal-body" style="margin-top:12px">${content}</div>`;
-  document.getElementById('contentModal').classList.add('open');
+function viewMyPosts(){
+  const html=S.posts.length===0?'<p>You haven\'t posted yet. Tap the compose bar in your Feed to share your first update!</p>':`<p>${S.posts.length} post(s) shared with the community.</p>`;
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">📝 My Posts</div><div class="mbody" style="margin-top:12px">${html}</div>`);
 }
-function showModal(type){
-  if(type==='about') showInfoModal('ℹ️ About FarmRoot','<p>FarmRoot is the agriculture community app connecting American farmers to education, funding, and each other.</p><p><strong>Version:</strong> 1.0.0</p><p><strong>Built by:</strong> Gyening Corp</p><p><a href="mailto:gyeningcorp@gmail.com" style="color:var(--g)">gyeningcorp@gmail.com</a></p>');
-  else if(type==='settings') showInfoModal('⚙️ Settings','<p>Settings panel coming soon. You\'ll be able to customize your feed, notification preferences, and farm profile here.</p>');
+function editProfile(){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">✏️ Edit Profile</div><div class="post-modal-form" style="margin-top:12px"><input class="pf-input" placeholder="Display name" value="John C."><input class="pf-input" placeholder="Location" value="Pittsburgh, PA"><select class="pf-select"><option>🌽 Crop Farmer</option><option>🐄 Livestock</option><option>🌿 Organic</option><option>🌾 Grain</option><option>🏡 Hobby Farm</option><option>🌱 Beginning Farmer</option></select><textarea class="pf-input" rows="3" placeholder="Bio (tell other farmers about yourself...)"></textarea><button class="pf-submit" onclick="closeModal();toast('✅ Profile updated!')">Save Changes →</button></div>`);
 }
-function closeModal(){ document.getElementById('contentModal').classList.remove('open'); }
+function aboutModal(){
+  showModal(`<div class="m-handle"></div><button class="m-close" onclick="closeModal()">✕</button><div class="m-title">🌱 About FarmRoot</div><div class="mbody" style="margin-top:12px"><p>FarmRoot is the agriculture community app connecting American farmers to education, funding, and each other.</p><p><strong>Version:</strong> 1.0.0 · <strong>Built by:</strong> Gyening Corp</p><p>📧 <a href="mailto:gyeningcorp@gmail.com" style="color:var(--g)">gyeningcorp@gmail.com</a></p></div><a class="m-link" href="https://gyeningcorp.github.io/farmroot/" target="_blank">Share FarmRoot →</a>`);
+}
 
-// ===== TOAST =====
+// ── TOAST ──
 let toastT;
 function toast(msg){
   const el=document.getElementById('toast');
-  el.textContent=msg; el.classList.add('show');
-  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),2500);
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2500);
 }
-
-// ===== STARTUP =====
-// Auto-enter if already joined
-if(localStorage.getItem('fr_joined')){
-  document.getElementById('screen-onboard').classList.remove('active');
-  document.getElementById('screen-app').classList.add('active');
-  restoreState();
-}
-const _enterApp = enterApp;
-window.enterApp = function(){
-  localStorage.setItem('fr_joined','1');
-  _enterApp();
-};
 </script>
 </body>
 </html>
-
