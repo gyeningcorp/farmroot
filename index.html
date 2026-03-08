@@ -5,224 +5,264 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#2D6A4F">
-<title>FarmRoot</title>
+<meta name="theme-color" content="#1B4332">
+<title>FarmRoot – Agriculture Community</title>
 <link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
+  --green-dark: #1B4332;
   --green: #2D6A4F;
+  --green-mid: #40916C;
   --green-light: #52B788;
   --green-pale: #D8F3DC;
-  --brown: #795548;
-  --brown-light: #A1887F;
   --gold: #F4A261;
+  --gold-dark: #E76F51;
   --sky: #4895EF;
   --red: #E63946;
-  --bg: #F8FAF8;
+  --bg: #F0F4F0;
   --card: #FFFFFF;
-  --text: #1B2D1E;
-  --muted: #6B7C6D;
-  --border: #E4EDE5;
-  --shadow: 0 2px 12px rgba(0,0,0,0.07);
-  --radius: 16px;
-  --tab-h: 68px;
+  --text: #1a2e1c;
+  --muted: #5c7a5e;
+  --border: #ddeadf;
+  --shadow: 0 2px 16px rgba(27,67,50,0.10);
+  --radius: 18px;
+  --tab-h: 64px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
-button, [onclick] { cursor: pointer; user-select: none; -webkit-touch-callout: none; }
+html, body { height: 100%; font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+button { cursor: pointer; font-family: inherit; }
+
+/* CENTER CONTAINER */
+.app-wrap { max-width: 480px; margin: 0 auto; height: 100%; position: relative; display: flex; flex-direction: column; background: var(--bg); }
+@media (min-width: 520px) {
+  body { background: #2D6A4F; }
+  .app-wrap { box-shadow: 0 0 60px rgba(0,0,0,0.4); }
+  .tab-bar { max-width: 480px; left: 50%; transform: translateX(-50%); }
+}
 
 /* SCREENS */
-.screen { position: fixed; inset: 0; display: none; flex-direction: column; background: var(--bg); }
+.screen { position: fixed; inset: 0; display: none; flex-direction: column; overflow: hidden; background: var(--bg); }
 .screen.active { display: flex; }
+@media (min-width: 520px) {
+  .screen { max-width: 480px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 60px rgba(0,0,0,0.4); border-radius: 0; }
+}
 
-/* ONBOARDING */
-#screen-onboard { background: linear-gradient(170deg, #1B4332 0%, #2D6A4F 50%, #52B788 100%); align-items: center; justify-content: flex-end; padding-bottom: 60px; }
-.onboard-bg { position: absolute; inset: 0; overflow: hidden; }
-.onboard-bg-icon { position: absolute; font-size: 80px; opacity: 0.08; }
-.onboard-content { position: relative; z-index: 2; text-align: center; padding: 0 32px; width: 100%; }
-.onboard-logo { font-size: 56px; margin-bottom: 8px; }
-.onboard-name { font-size: 42px; font-weight: 800; color: white; letter-spacing: -1px; }
-.onboard-tagline { font-size: 18px; color: rgba(255,255,255,0.8); margin: 8px 0 40px; font-weight: 500; }
-.onboard-pillars { display: flex; gap: 12px; margin-bottom: 40px; justify-content: center; }
-.pillar { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 30px; padding: 10px 18px; color: white; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.btn-white { background: white; color: var(--green); border: none; border-radius: 16px; padding: 18px 32px; font-size: 18px; font-weight: 700; font-family: 'Inter', sans-serif; width: 100%; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-.btn-ghost { background: transparent; border: 2px solid rgba(255,255,255,0.5); color: white; border-radius: 16px; padding: 14px; font-size: 16px; font-weight: 600; font-family: 'Inter', sans-serif; width: 100%; margin-top: 12px; cursor: pointer; }
+/* ===== ONBOARDING ===== */
+#screen-onboard { background: var(--green-dark); justify-content: flex-end; overflow: hidden; }
+.ob-photo { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80') center/cover no-repeat; }
+.ob-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(27,67,50,0.7) 40%, rgba(27,67,50,0.97) 100%); }
+.ob-content { position: relative; z-index: 2; padding: 0 28px 52px; }
+.ob-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.ob-logo-icon { width: 52px; height: 52px; background: var(--green-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.ob-logo-text { font-size: 34px; font-weight: 900; color: white; letter-spacing: -1px; }
+.ob-tagline { font-size: 18px; color: rgba(255,255,255,0.85); font-weight: 500; margin-bottom: 6px; line-height: 1.4; }
+.ob-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 32px; }
+.ob-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.ob-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 30px; padding: 8px 16px; color: white; font-size: 13px; font-weight: 600; }
+.btn-primary { width: 100%; padding: 17px; font-size: 17px; font-weight: 700; color: var(--green-dark); background: white; border: none; border-radius: 14px; margin-bottom: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+.btn-outline { width: 100%; padding: 14px; font-size: 15px; font-weight: 600; color: white; background: transparent; border: 2px solid rgba(255,255,255,0.4); border-radius: 14px; }
 
-/* MAIN APP */
-#screen-app { overflow: hidden; }
+/* ===== TOP BAR ===== */
+.top-bar { background: white; padding: 13px 16px 11px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); flex-shrink: 0; position: sticky; top: 0; z-index: 100; }
+.top-logo { font-size: 20px; font-weight: 900; color: var(--green-dark); display: flex; align-items: center; gap: 9px; }
+.top-logo-icon { width: 34px; height: 34px; background: var(--green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.top-actions { display: flex; gap: 8px; align-items: center; }
+.top-btn { width: 38px; height: 38px; border-radius: 11px; background: var(--bg); border: none; display: flex; align-items: center; justify-content: center; font-size: 17px; position: relative; }
+.notif-dot { position: absolute; top: 7px; right: 7px; width: 7px; height: 7px; background: var(--red); border-radius: 50%; border: 1.5px solid white; }
+.avatar-sm { width: 34px; height: 34px; border-radius: 10px; background: var(--green); color: white; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
 
-/* TOP NAV */
-.top-nav { background: white; padding: 14px 20px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-.nav-logo { font-size: 22px; font-weight: 800; color: var(--green); display: flex; align-items: center; gap: 8px; }
-.nav-logo span { font-size: 26px; }
-.nav-right { display: flex; align-items: center; gap: 12px; }
-.nav-icon-btn { width: 40px; height: 40px; border-radius: 12px; background: var(--green-pale); border: none; display: flex; align-items: center; justify-content: center; font-size: 18px; position: relative; }
-.notif-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--red); border-radius: 50%; border: 2px solid white; }
-.nav-avatar { width: 36px; height: 36px; border-radius: 10px; background: var(--green); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; font-weight: 700; }
+/* ===== TAB BODY ===== */
+.tab-body { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
 
-/* TAB PANELS */
-.tab-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding-bottom: calc(var(--tab-h) + 16px); }
+/* ===== BOTTOM TAB BAR ===== */
+.tab-bar { position: fixed; bottom: 0; left: 0; right: 0; height: var(--tab-h); background: white; display: flex; border-top: 1px solid var(--border); z-index: 200; }
+.tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: none; background: none; padding: 6px 2px; }
+.tab-btn .ti { font-size: 21px; transition: transform 0.15s; }
+.tab-btn .tl { font-size: 10px; font-weight: 600; color: var(--muted); }
+.tab-btn.active .ti { transform: scale(1.2); }
+.tab-btn.active .tl { color: var(--green); font-weight: 700; }
+.tab-content { padding-bottom: calc(var(--tab-h) + 12px); }
 
-/* BOTTOM TAB BAR */
-.tab-bar { position: fixed; bottom: 0; left: 0; right: 0; height: var(--tab-h); background: white; display: flex; border-top: 1px solid var(--border); z-index: 200; padding-bottom: env(safe-area-inset-bottom); }
-.tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: none; background: none; font-family: 'Inter', sans-serif; padding: 8px 4px; }
-.tab-btn .ti { font-size: 22px; transition: transform 0.15s; }
-.tab-btn .tl { font-size: 10px; font-weight: 600; color: var(--muted); transition: color 0.15s; }
-.tab-btn.active .ti { transform: scale(1.15); }
-.tab-btn.active .tl { color: var(--green); }
-
-/* SECTION PANELS */
+/* PANELS */
 .panel { display: none; }
 .panel.active { display: block; }
 
-/* FEED */
-.feed-header { padding: 16px 16px 8px; }
-.feed-greeting { font-size: 22px; font-weight: 800; color: var(--text); }
-.feed-sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
-.stories-row { display: flex; gap: 12px; padding: 12px 16px; overflow-x: auto; scrollbar-width: none; }
-.stories-row::-webkit-scrollbar { display: none; }
-.story { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
-.story-ring { width: 60px; height: 60px; border-radius: 18px; padding: 3px; background: linear-gradient(135deg, var(--green), var(--gold)); }
-.story-inner { width: 100%; height: 100%; border-radius: 15px; background: var(--card); border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 28px; overflow: hidden; }
-.story-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 13px; }
-.story-name { font-size: 11px; font-weight: 600; color: var(--text); text-align: center; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.story-add { background: var(--green-pale); border: 2px dashed var(--green-light); border-radius: 18px; }
+/* ===== FEED ===== */
+.feed-greeting { padding: 18px 16px 8px; }
+.feed-hi { font-size: 22px; font-weight: 800; color: var(--text); }
+.feed-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
 
-.post-card { background: white; margin: 0 12px 12px; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.post-header { display: flex; align-items: center; gap: 10px; padding: 14px 14px 10px; }
-.post-avatar { width: 42px; height: 42px; border-radius: 12px; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; font-weight: 700; color: var(--green); overflow: hidden; }
-.post-meta { flex: 1; }
+.stories { display: flex; gap: 10px; padding: 10px 14px 14px; overflow-x: auto; scrollbar-width: none; }
+.stories::-webkit-scrollbar { display: none; }
+.story { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.story-ring { width: 62px; height: 62px; border-radius: 18px; padding: 2.5px; background: linear-gradient(135deg, var(--green-light), var(--gold)); }
+.story-inner { width: 100%; height: 100%; border-radius: 15px; background: white; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 26px; overflow: hidden; }
+.story-add-ring { background: none; border: 2px dashed var(--green-light); border-radius: 18px; }
+.story-add-inner { background: var(--green-pale); font-size: 22px; }
+.story-name { font-size: 10.5px; font-weight: 600; color: var(--text); text-align: center; max-width: 62px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.compose-wrap { margin: 0 12px 14px; background: white; border-radius: 14px; padding: 12px 14px; display: flex; gap: 10px; align-items: center; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.compose-input { flex: 1; border: none; outline: none; font-size: 14px; color: var(--text); background: none; font-family: inherit; }
+.compose-submit { background: var(--green); border: none; border-radius: 10px; padding: 9px 16px; color: white; font-size: 13px; font-weight: 700; }
+
+/* POST CARDS */
+.post { background: white; margin: 0 12px 14px; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--border); }
+.post-head { display: flex; align-items: center; gap: 10px; padding: 13px 14px 0; }
+.post-av { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: var(--green-pale); }
+.post-info { flex: 1; min-width: 0; }
 .post-name { font-size: 14px; font-weight: 700; color: var(--text); }
-.post-location { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 3px; }
-.post-time { font-size: 12px; color: var(--muted); }
-.post-badge { background: var(--green-pale); color: var(--green); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
-.post-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: linear-gradient(135deg, #D8F3DC, #B7E4C7); display: flex; align-items: center; justify-content: center; font-size: 60px; }
-.post-body { padding: 12px 14px; }
-.post-text { font-size: 14px; line-height: 1.55; color: var(--text); }
+.post-loc { font-size: 12px; color: var(--muted); margin-top: 1px; }
+.post-badge { display: inline-flex; align-items: center; gap: 3px; background: var(--green-pale); color: var(--green-dark); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-left: 4px; }
+.post-more { font-size: 20px; color: var(--muted); background: none; border: none; }
+
+/* PHOTO CARDS — proper gradient photo placeholders */
+.post-photo { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; margin-top: 12px; position: relative; overflow: hidden; }
+.post-photo-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); color: white; font-size: 13px; font-weight: 600; }
+.ph-corn { background: linear-gradient(160deg, #4a7c59 0%, #d4a017 50%, #a0522d 100%); }
+.ph-organic { background: linear-gradient(160deg, #2d6a4f 0%, #74c69d 60%, #b7e4c7 100%); }
+.ph-cattle { background: linear-gradient(160deg, #5a3e2b 0%, #7d5a3c 40%, #95bf74 100%); }
+.ph-alert { background: linear-gradient(160deg, #1b4332 0%, #2d6a4f 100%); }
+.post-photo-emoji { font-size: 72px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+
+.post-body { padding: 12px 14px 0; }
+.post-text { font-size: 14px; line-height: 1.6; color: var(--text); }
 .post-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-.tag { background: var(--green-pale); color: var(--green); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
-.post-actions { display: flex; gap: 0; border-top: 1px solid var(--border); }
-.post-action { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 8px; border: none; background: none; font-size: 13px; font-weight: 600; color: var(--muted); font-family: 'Inter', sans-serif; }
-.post-action.liked { color: var(--red); }
+.ptag { background: var(--green-pale); color: var(--green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
 
-/* COMPOSE */
-.compose-bar { background: white; padding: 12px 16px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid var(--border); }
-.compose-input { flex: 1; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 24px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--text); outline: none; }
-.compose-btn { background: var(--green); border: none; border-radius: 12px; padding: 10px 16px; color: white; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; }
+.post-actions { display: flex; border-top: 1px solid var(--border); margin-top: 12px; }
+.paction { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 6px; border: none; background: none; font-size: 13px; font-weight: 600; color: var(--muted); }
+.paction.liked { color: var(--red); }
 
-/* LEARN */
-.section-pad { padding: 16px; }
-.section-title { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 14px; }
-.category-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-bottom: 16px; padding-bottom: 4px; }
-.category-row::-webkit-scrollbar { display: none; }
-.cat-chip { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 2px solid var(--border); background: white; color: var(--muted); white-space: nowrap; font-family: 'Inter', sans-serif; flex-shrink: 0; }
-.cat-chip.active { background: var(--green); border-color: var(--green); color: white; }
+/* ALERT POST */
+.post-alert { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); border-color: transparent; }
+.post-alert .post-name { color: white; }
+.post-alert .post-loc { color: rgba(255,255,255,0.7); }
+.post-alert .post-text { color: rgba(255,255,255,0.92); }
+.post-alert .post-actions { border-top-color: rgba(255,255,255,0.15); }
+.post-alert .paction { color: rgba(255,255,255,0.8); }
+.post-alert .post-head { padding-bottom: 4px; }
+.alert-tag { display: inline-block; background: var(--gold); color: var(--green-dark); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
 
-.learn-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; display: flex; }
-.learn-img { width: 90px; height: 90px; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-size: 40px; flex-shrink: 0; }
-.learn-body { padding: 12px; flex: 1; }
-.learn-cat { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.learn-title { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
-.learn-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+/* ===== LEARN ===== */
+.learn-hero { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); padding: 22px 16px; color: white; }
+.learn-hero h2 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+.learn-hero p { font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 14px; }
+.learn-search { background: white; border-radius: 12px; padding: 11px 14px; display: flex; align-items: center; gap: 8px; }
+.learn-search input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; color: var(--text); }
 
-.featured-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
-.featured-img { width: 100%; height: 160px; background: linear-gradient(135deg, #1B4332, #52B788); display: flex; align-items: center; justify-content: center; font-size: 80px; }
-.featured-body { padding: 14px; }
-.featured-cat { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-.featured-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 6px; line-height: 1.25; }
-.featured-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
-.btn-green { background: var(--green); color: white; border: none; border-radius: 10px; padding: 10px 20px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; }
+.cats { display: flex; gap: 8px; padding: 14px 14px 2px; overflow-x: auto; scrollbar-width: none; }
+.cats::-webkit-scrollbar { display: none; }
+.cat { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 2px solid var(--border); background: white; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+.cat.active { background: var(--green); border-color: var(--green); color: white; }
 
-/* RESOURCES */
-.resource-hero { background: linear-gradient(135deg, #1B4332, #2D6A4F); padding: 24px 16px; color: white; }
-.resource-hero-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
-.resource-hero-sub { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
-.search-bar { background: white; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
-.search-bar input { flex: 1; border: none; outline: none; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--text); }
-.search-bar span { font-size: 18px; color: var(--muted); }
+.featured-learn { margin: 12px 12px 6px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.fl-img { height: 160px; background: linear-gradient(135deg, #1b4332 0%, #40916c 50%, #74c69d 100%); display: flex; align-items: center; justify-content: center; position: relative; }
+.fl-img-emoji { font-size: 80px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+.fl-img-label { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--green-dark); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
+.fl-body { background: white; padding: 14px; }
+.fl-cat { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.fl-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 6px; line-height: 1.25; }
+.fl-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+.btn-green { background: var(--green); color: white; border: none; border-radius: 10px; padding: 11px 20px; font-size: 14px; font-weight: 700; }
 
-.resource-tabs { display: flex; gap: 0; background: white; border-bottom: 1px solid var(--border); }
-.res-tab { flex: 1; padding: 12px 4px; text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); border: none; background: none; font-family: 'Inter', sans-serif; border-bottom: 3px solid transparent; }
-.res-tab.active { color: var(--green); border-bottom-color: var(--green); }
+.learn-list { padding: 6px 12px 0; }
+.learn-row { background: white; border-radius: 14px; padding: 13px; margin-bottom: 10px; display: flex; gap: 12px; align-items: center; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.lr-icon { width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.lr-icon.g { background: var(--green-pale); }
+.lr-icon.o { background: #FEF3E2; }
+.lr-icon.b { background: #EBF5FB; }
+.lr-icon.p { background: #F8F0FF; }
+.lr-body { flex: 1; min-width: 0; }
+.lr-cat { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; }
+.lr-title { font-size: 14px; font-weight: 700; color: var(--text); margin: 2px 0; line-height: 1.3; }
+.lr-meta { font-size: 12px; color: var(--muted); display: flex; gap: 10px; }
+.lr-arrow { font-size: 18px; color: var(--muted); }
 
-.resource-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin: 12px 12px 0; padding: 16px; }
-.res-card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-.res-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-.res-icon.green { background: var(--green-pale); }
-.res-icon.gold { background: #FEF3E2; }
-.res-icon.sky { background: #EBF5FB; }
-.res-meta { flex: 1; }
-.res-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
-.res-agency { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.res-amount { font-size: 18px; font-weight: 800; color: var(--green); margin-bottom: 4px; }
-.res-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
-.res-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-.res-tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
-.res-tag.green { background: var(--green-pale); color: var(--green); }
-.res-tag.gold { background: #FEF3E2; color: #E6850E; }
-.res-tag.sky { background: #EBF5FB; color: #1A73C4; }
-.apply-btn { width: 100%; padding: 12px; background: var(--green); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif; }
-.deadline-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+/* ===== RESOURCES ===== */
+.res-hero { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%); padding: 22px 16px 20px; color: white; }
+.res-hero h2 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+.res-hero p { font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 14px; }
+.res-search { background: white; border-radius: 12px; padding: 11px 14px; display: flex; gap: 8px; align-items: center; }
+.res-search input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; }
+.res-tabs { display: flex; background: white; border-bottom: 1px solid var(--border); }
+.rtab { flex: 1; padding: 13px 4px; text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); border: none; background: none; border-bottom: 3px solid transparent; }
+.rtab.active { color: var(--green); border-bottom-color: var(--green); }
+.res-list { padding: 12px 12px 0; }
+.res-card { background: white; border-radius: var(--radius); padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.rc-top { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.rc-icon { width: 50px; height: 50px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.rc-icon.g { background: var(--green-pale); }
+.rc-icon.o { background: #FEF3E2; }
+.rc-icon.b { background: #EBF5FB; }
+.rc-title { font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.3; }
+.rc-agency { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.rc-amount { font-size: 22px; font-weight: 900; color: var(--green); margin-bottom: 6px; }
+.rc-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+.rc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.rtag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.rtag.g { background: var(--green-pale); color: var(--green-dark); }
+.rtag.o { background: #FEF3E2; color: #c1560a; }
+.rtag.b { background: #EBF5FB; color: #1a5fa8; }
+.rc-deadline { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.apply-btn { width: 100%; padding: 13px; background: var(--green); color: white; border: none; border-radius: 11px; font-size: 14px; font-weight: 700; }
 
-/* MARKET */
-.market-header { padding: 16px; }
-.market-search { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-.market-search input { flex: 1; border: none; outline: none; font-size: 14px; font-family: 'Inter', sans-serif; }
-.filter-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-.filter-row::-webkit-scrollbar { display: none; }
-.filter-chip { padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 2px solid var(--border); background: white; color: var(--muted); white-space: nowrap; font-family: 'Inter', sans-serif; flex-shrink: 0; }
-.filter-chip.active { background: var(--green); border-color: var(--green); color: white; }
+/* ===== MARKET ===== */
+.market-top { padding: 16px 14px 8px; }
+.market-search { background: white; border: 1px solid var(--border); border-radius: 13px; padding: 11px 14px; display: flex; gap: 8px; align-items: center; margin-bottom: 12px; box-shadow: var(--shadow); }
+.market-search input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; }
+.filters { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.filters::-webkit-scrollbar { display: none; }
+.fchip { padding: 7px 15px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 2px solid var(--border); background: white; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+.fchip.active { background: var(--green); border-color: var(--green); color: white; }
+.mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 12px 0; }
+.mcard { background: white; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.mcard-img { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 50px; position: relative; }
+.mcard-badge { position: absolute; top: 8px; left: 8px; background: var(--green); color: white; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+.mc-img-tomato { background: linear-gradient(135deg, #ffb347, #e63946); }
+.mc-img-corn { background: linear-gradient(135deg, #f4d03f, #a9770a); }
+.mc-img-sun { background: linear-gradient(135deg, #f7dc6f, #e67e22); }
+.mc-img-egg { background: linear-gradient(135deg, #fdebd0, #e59866); }
+.mc-img-tractor { background: linear-gradient(135deg, #5d6d7e, #2c3e50); }
+.mc-img-honey { background: linear-gradient(135deg, #f9ca24, #f0932b); }
+.mc-img-kale { background: linear-gradient(135deg, #27ae60, #1e8449); }
+.mc-img-seed { background: linear-gradient(135deg, #a9cce3, #5dade2); }
+.mcard-body { padding: 9px 11px 11px; }
+.mcard-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.mcard-seller { font-size: 11px; color: var(--muted); margin-bottom: 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mcard-bottom { display: flex; align-items: center; justify-content: space-between; }
+.mcard-price { font-size: 15px; font-weight: 800; color: var(--green); }
+.add-btn { width: 28px; height: 28px; background: var(--green); border: none; border-radius: 8px; color: white; font-size: 18px; display: flex; align-items: center; justify-content: center; }
 
-.market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 12px 12px; }
-.market-item { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.market-item-img { width: 100%; aspect-ratio: 1; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-size: 48px; }
-.market-item-body { padding: 10px 12px 12px; }
-.market-item-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.market-item-seller { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-.market-price-row { display: flex; align-items: center; justify-content: space-between; }
-.market-price { font-size: 16px; font-weight: 800; color: var(--green); }
-.cart-btn { width: 30px; height: 30px; background: var(--green); border: none; border-radius: 8px; color: white; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-
-.post-btn-fab { position: fixed; bottom: calc(var(--tab-h) + 16px); right: 16px; width: 52px; height: 52px; background: var(--green); border: none; border-radius: 16px; color: white; font-size: 26px; box-shadow: 0 6px 20px rgba(45,106,79,0.45); z-index: 150; display: none; align-items: center; justify-content: center; }
-.post-btn-fab.show { display: flex; }
-
-/* PROFILE */
-.profile-header { background: linear-gradient(135deg, #1B4332, #2D6A4F); padding: 32px 20px 24px; color: white; text-align: center; }
-.profile-avatar { width: 80px; height: 80px; border-radius: 20px; background: rgba(255,255,255,0.2); border: 3px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 12px; }
-.profile-name { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-.profile-location { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
-.profile-stats { display: flex; gap: 0; }
-.p-stat { flex: 1; text-align: center; }
-.p-stat-num { font-size: 22px; font-weight: 800; }
-.p-stat-label { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 500; }
-.p-stat + .p-stat { border-left: 1px solid rgba(255,255,255,0.2); }
-
-.profile-section { padding: 16px; }
-.profile-menu-item { background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); }
-.pmi-icon { font-size: 22px; width: 36px; }
-.pmi-text { flex: 1; font-size: 15px; font-weight: 600; color: var(--text); }
-.pmi-arrow { font-size: 16px; color: var(--muted); }
-.badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-.farm-badge { background: white; border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); }
-.fb-icon { font-size: 24px; }
-.fb-label { font-size: 12px; font-weight: 700; color: var(--text); }
-.fb-sub { font-size: 11px; color: var(--muted); }
+/* ===== PROFILE ===== */
+.prof-hero { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%); padding: 28px 20px 22px; color: white; text-align: center; }
+.prof-av { width: 76px; height: 76px; border-radius: 20px; background: rgba(255,255,255,0.2); border: 3px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 38px; margin: 0 auto 10px; }
+.prof-name { font-size: 22px; font-weight: 800; }
+.prof-loc { font-size: 13px; color: rgba(255,255,255,0.7); margin: 4px 0 18px; }
+.prof-stats { display: flex; background: rgba(255,255,255,0.1); border-radius: 14px; overflow: hidden; }
+.pstat { flex: 1; padding: 12px 6px; text-align: center; }
+.pstat + .pstat { border-left: 1px solid rgba(255,255,255,0.15); }
+.pstat-n { font-size: 20px; font-weight: 800; }
+.pstat-l { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+.prof-body { padding: 14px 12px; }
+.prof-badges { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.pbadge { background: white; border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.pbadge-icon { font-size: 22px; }
+.pbadge-name { font-size: 12px; font-weight: 700; color: var(--text); }
+.pbadge-sub { font-size: 10px; color: var(--muted); }
+.pmenu { background: white; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.pmenu-item { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.pmenu-item:last-child { border-bottom: none; }
+.pmi-icon { font-size: 20px; width: 32px; }
+.pmi-label { flex: 1; font-size: 15px; font-weight: 600; color: var(--text); }
+.pmi-arrow { font-size: 16px; color: #ccc; }
 
 /* TOAST */
-.toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-10px); background: rgba(27,45,30,0.92); color: white; border-radius: 20px; padding: 11px 22px; font-size: 14px; font-weight: 600; z-index: 999; opacity: 0; transition: all 0.25s; white-space: nowrap; }
+.toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-8px); background: rgba(27,67,50,0.95); color: white; border-radius: 20px; padding: 10px 20px; font-size: 14px; font-weight: 600; z-index: 9999; opacity: 0; transition: all 0.25s; white-space: nowrap; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* MODAL */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 500; display: none; align-items: flex-end; justify-content: center; }
-.modal-overlay.open { display: flex; }
-.modal { background: white; border-radius: 24px 24px 0 0; width: 100%; max-height: 80vh; overflow-y: auto; padding: 24px 20px 40px; }
-.modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
-.modal-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
-
-/* ANIMATIONS */
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.slide-up { animation: slideUp 0.3s ease; }
+@media (min-width: 520px) {
+  .toast { left: 50%; }
+}
 </style>
 </head>
 <body>
@@ -231,561 +271,317 @@ button, [onclick] { cursor: pointer; user-select: none; -webkit-touch-callout: n
 
 <!-- ===== ONBOARDING ===== -->
 <div id="screen-onboard" class="screen active">
-  <div class="onboard-bg">
-    <div class="onboard-bg-icon" style="top:5%;left:5%">🌾</div>
-    <div class="onboard-bg-icon" style="top:15%;right:8%">🚜</div>
-    <div class="onboard-bg-icon" style="top:30%;left:15%">🌽</div>
-    <div class="onboard-bg-icon" style="top:40%;right:5%">🐄</div>
-    <div class="onboard-bg-icon" style="top:55%;left:3%">🍅</div>
-    <div class="onboard-bg-icon" style="top:60%;right:15%">🌻</div>
-    <div class="onboard-bg-icon" style="top:70%;left:20%">🥕</div>
-    <div class="onboard-bg-icon" style="top:20%;left:40%">☀️</div>
-  </div>
-  <div class="onboard-content">
-    <div class="onboard-logo">🌱</div>
-    <div class="onboard-name">FarmRoot</div>
-    <div class="onboard-tagline">Grow. Fund. Connect.</div>
-    <div class="onboard-pillars">
-      <div class="pillar">🎓 Learn</div>
-      <div class="pillar">💰 Fund</div>
-      <div class="pillar">🤝 Connect</div>
+  <div class="ob-photo"></div>
+  <div class="ob-overlay"></div>
+  <div class="ob-content">
+    <div class="ob-logo-row">
+      <div class="ob-logo-icon">🌱</div>
+      <div class="ob-logo-text">FarmRoot</div>
     </div>
-    <button class="btn-white" onclick="enterApp()">Join the Community →</button>
-    <button class="btn-ghost" onclick="enterApp()">I already have an account</button>
+    <div class="ob-tagline">The community built for<br>American farmers.</div>
+    <div class="ob-sub">Education · Funding · Marketplace · Connection</div>
+    <div class="ob-pills">
+      <div class="ob-pill">🌾 Crop Guides</div>
+      <div class="ob-pill">💰 USDA Grants</div>
+      <div class="ob-pill">🛒 Farm Market</div>
+      <div class="ob-pill">🤝 Community</div>
+    </div>
+    <button class="btn-primary" onclick="enterApp()">Join Free →</button>
+    <button class="btn-outline" onclick="enterApp()">Sign In</button>
   </div>
 </div>
 
 <!-- ===== MAIN APP ===== -->
 <div id="screen-app" class="screen">
-  <!-- Top Nav -->
-  <div class="top-nav">
-    <div class="nav-logo"><span>🌱</span> FarmRoot</div>
-    <div class="nav-right">
-      <button class="nav-icon-btn" onclick="showToast('🔔 3 new notifications')">
-        🔔<div class="notif-dot"></div>
-      </button>
-      <button class="nav-icon-btn" onclick="showToast('💬 Messages coming soon')">💬</button>
-      <div class="nav-avatar" onclick="switchTab('profile')">J</div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-logo">
+      <div class="top-logo-icon">🌱</div>
+      FarmRoot
+    </div>
+    <div class="top-actions">
+      <button class="top-btn" onclick="toast('🔔 3 new notifications')">🔔<div class="notif-dot"></div></button>
+      <button class="top-btn" onclick="toast('💬 Messages coming soon')">💬</button>
+      <button class="avatar-sm" onclick="switchTab('profile')">J</button>
     </div>
   </div>
 
-  <!-- Feed Panel -->
-  <div class="tab-body panel active" id="panel-feed">
-    <div class="feed-header">
-      <div class="feed-greeting">Good evening, John 👋</div>
+  <!-- FEED -->
+  <div class="tab-body panel active tab-content" id="panel-feed">
+    <div class="feed-greeting">
+      <div class="feed-hi">Good evening, John 👋</div>
       <div class="feed-sub">Here's what's growing in your community</div>
     </div>
 
-    <!-- Stories -->
-    <div class="stories-row">
+    <div class="stories">
       <div class="story">
-        <div class="story-ring story-add">
-          <div class="story-inner" style="background:var(--green-pale)">➕</div>
-        </div>
+        <div class="story-ring story-add-ring"><div class="story-inner story-add-inner">➕</div></div>
         <div class="story-name">Your Story</div>
       </div>
-      <div class="story">
-        <div class="story-ring"><div class="story-inner">🧑‍🌾</div></div>
-        <div class="story-name">Tom B.</div>
-      </div>
-      <div class="story">
-        <div class="story-ring"><div class="story-inner">👩‍🌾</div></div>
-        <div class="story-name">Sara K.</div>
-      </div>
-      <div class="story">
-        <div class="story-ring"><div class="story-inner">🌾</div></div>
-        <div class="story-name">Greenacre</div>
-      </div>
-      <div class="story">
-        <div class="story-ring"><div class="story-inner">🐄</div></div>
-        <div class="story-name">HillTop</div>
-      </div>
-      <div class="story">
-        <div class="story-ring"><div class="story-inner">🌻</div></div>
-        <div class="story-name">SunFields</div>
-      </div>
+      <div class="story"><div class="story-ring"><div class="story-inner">🧑‍🌾</div></div><div class="story-name">Tom B.</div></div>
+      <div class="story"><div class="story-ring"><div class="story-inner">👩‍🌾</div></div><div class="story-name">Sara K.</div></div>
+      <div class="story"><div class="story-ring"><div class="story-inner">🌾</div></div><div class="story-name">Greenacre</div></div>
+      <div class="story"><div class="story-ring"><div class="story-inner">🐄</div></div><div class="story-name">HillTop</div></div>
+      <div class="story"><div class="story-ring"><div class="story-inner">🌻</div></div><div class="story-name">SunFields</div></div>
     </div>
 
-    <!-- Compose -->
-    <div class="compose-bar">
-      <div class="nav-avatar" style="flex-shrink:0">J</div>
-      <input class="compose-input" placeholder="Share a farming update..." id="compose-input">
-      <button class="compose-btn" onclick="submitPost()">Post</button>
+    <div class="compose-wrap">
+      <div class="avatar-sm">J</div>
+      <input class="compose-input" id="compose-input" placeholder="Share a farming update...">
+      <button class="compose-submit" onclick="submitPost()">Post</button>
     </div>
 
-    <!-- Posts -->
     <div id="post-list">
 
-      <div class="post-card slide-up">
-        <div class="post-header">
-          <div class="post-avatar">🧑‍🌾</div>
-          <div class="post-meta">
-            <div class="post-name">Tom Brewer · <span class="post-badge">🌽 Corn Farmer</span></div>
-            <div class="post-location">📍 Iowa · 2h ago</div>
+      <!-- Post 1 -->
+      <div class="post">
+        <div class="post-head">
+          <div class="post-av">🧑‍🌾</div>
+          <div class="post-info">
+            <div class="post-name">Tom Brewer <span class="post-badge">🌽 Corn Farmer</span></div>
+            <div class="post-loc">📍 Iowa · 2 hours ago</div>
           </div>
+          <button class="post-more">···</button>
         </div>
-        <div class="post-img">🌽</div>
+        <div class="post-photo ph-corn">
+          <div class="post-photo-emoji">🌽</div>
+          <div class="post-photo-label">📍 North 40 acres — Iowa</div>
+        </div>
         <div class="post-body">
-          <div class="post-text">Just wrapped up planting on the north 40 acres. Soil temps finally hit 55°F — perfect for corn. Anyone else seeing delayed germination this season? We got 3 inches of rain last week which is helping.</div>
-          <div class="post-tags"><span class="tag">#corn</span><span class="tag">#planting</span><span class="tag">#iowa</span></div>
+          <div class="post-text">Just wrapped up planting on the north 40 acres. Soil temps finally hit 55°F — perfect for corn. Anyone else seeing delayed germination this season? We got 3 inches of rain last week which is helping a lot.</div>
+          <div class="post-tags"><span class="ptag">#corn</span><span class="ptag">#planting</span><span class="ptag">#iowa</span></div>
         </div>
         <div class="post-actions">
-          <button class="post-action" onclick="likePost(this)">👍 124</button>
-          <button class="post-action" onclick="showToast('💬 Comments coming soon')">💬 18</button>
-          <button class="post-action" onclick="showToast('🔗 Link copied!')">↗️ Share</button>
+          <button class="paction" onclick="likePost(this)">👍 124</button>
+          <button class="paction" onclick="toast('💬 Comments coming soon')">💬 18</button>
+          <button class="paction" onclick="toast('🔗 Link copied!')">↗️ Share</button>
         </div>
       </div>
 
-      <div class="post-card slide-up">
-        <div class="post-header">
-          <div class="post-avatar">👩‍🌾</div>
-          <div class="post-meta">
-            <div class="post-name">Sara Knowles · <span class="post-badge">🍅 Organic</span></div>
-            <div class="post-location">📍 California · 5h ago</div>
+      <!-- Alert post -->
+      <div class="post post-alert">
+        <div class="post-head">
+          <div class="post-av" style="background:rgba(255,255,255,0.15)">📢</div>
+          <div class="post-info">
+            <div class="post-name">FarmRoot Alert</div>
+            <div class="post-loc">🌐 National · Today</div>
           </div>
         </div>
-        <div class="post-body">
-          <div class="post-text">Excited to share — we just received the USDA Organic Certification! 3 years of work paid off. If anyone needs guidance on the application process, happy to help. The resources on FarmRoot made it so much easier to navigate. 🙌</div>
-          <div class="post-tags"><span class="tag">#organic</span><span class="tag">#USDA</span><span class="tag">#certification</span></div>
+        <div class="post-body" style="padding-top:10px">
+          <div class="alert-tag">🚨 New Grant Available</div>
+          <div class="post-text">USDA Emergency Relief Program 2025 — up to <strong>$125,000</strong> for eligible farmers affected by drought or flooding. Application deadline: April 30, 2026. Don't miss out.</div>
         </div>
         <div class="post-actions">
-          <button class="post-action liked">❤️ 312</button>
-          <button class="post-action" onclick="showToast('💬 Comments coming soon')">💬 47</button>
-          <button class="post-action" onclick="showToast('🔗 Link copied!')">↗️ Share</button>
+          <button class="paction" onclick="switchTab('resources')">💰 View Grant</button>
+          <button class="paction" onclick="toast('🔖 Saved!')">🔖 Save</button>
         </div>
       </div>
 
-      <div class="post-card slide-up" style="background:linear-gradient(135deg,#1B4332,#2D6A4F);color:white">
-        <div class="post-header">
-          <div class="post-avatar" style="background:rgba(255,255,255,0.2)">📢</div>
-          <div class="post-meta">
-            <div class="post-name" style="color:white">FarmRoot Alert</div>
-            <div class="post-location" style="color:rgba(255,255,255,0.7)">🌐 National · Today</div>
+      <!-- Post 2 -->
+      <div class="post">
+        <div class="post-head">
+          <div class="post-av">👩‍🌾</div>
+          <div class="post-info">
+            <div class="post-name">Sara Knowles <span class="post-badge">🌿 Organic</span></div>
+            <div class="post-loc">📍 California · 5 hours ago</div>
           </div>
+          <button class="post-more">···</button>
+        </div>
+        <div class="post-photo ph-organic">
+          <div class="post-photo-emoji">🌿</div>
+          <div class="post-photo-label">📜 USDA Organic Certified — 3 years in the making</div>
         </div>
         <div class="post-body">
-          <div class="post-text" style="color:rgba(255,255,255,0.95)">🚨 <strong>New Grant Available:</strong> USDA Emergency Relief Program 2025 — up to $125,000 for eligible farmers affected by drought or flooding. Application deadline: April 30, 2026.</div>
-        </div>
-        <div class="post-actions" style="border-top:1px solid rgba(255,255,255,0.2)">
-          <button class="post-action" style="color:rgba(255,255,255,0.8)" onclick="switchTab('resources')">💰 View Grant</button>
-          <button class="post-action" style="color:rgba(255,255,255,0.8)" onclick="showToast('🔖 Saved!')">🔖 Save</button>
-        </div>
-      </div>
-
-      <div class="post-card slide-up">
-        <div class="post-header">
-          <div class="post-avatar">🐄</div>
-          <div class="post-meta">
-            <div class="post-name">HillTop Ranch · <span class="post-badge">🐄 Livestock</span></div>
-            <div class="post-location">📍 Texas · 8h ago</div>
-          </div>
-        </div>
-        <div class="post-img">🌿</div>
-        <div class="post-body">
-          <div class="post-text">Rotational grazing update — moved the herd to pasture 3 this morning. Grass height at 8 inches, perfect for our Angus. Soil moisture is holding well despite the heat. Anyone using cover crops between rotations?</div>
-          <div class="post-tags"><span class="tag">#livestock</span><span class="tag">#grazing</span><span class="tag">#texas</span></div>
+          <div class="post-text">We just received our USDA Organic Certification! 3 years of hard work paid off. If anyone needs guidance on the process, the resources on FarmRoot made it so much easier to navigate. Happy to help! 🙌</div>
+          <div class="post-tags"><span class="ptag">#organic</span><span class="ptag">#USDA</span><span class="ptag">#certified</span></div>
         </div>
         <div class="post-actions">
-          <button class="post-action" onclick="likePost(this)">👍 89</button>
-          <button class="post-action" onclick="showToast('💬 Comments coming soon')">💬 22</button>
-          <button class="post-action" onclick="showToast('🔗 Link copied!')">↗️ Share</button>
+          <button class="paction liked">❤️ 312</button>
+          <button class="paction" onclick="toast('💬 Comments coming soon')">💬 47</button>
+          <button class="paction" onclick="toast('🔗 Link copied!')">↗️ Share</button>
+        </div>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="post">
+        <div class="post-head">
+          <div class="post-av">🐄</div>
+          <div class="post-info">
+            <div class="post-name">HillTop Ranch <span class="post-badge">🐄 Livestock</span></div>
+            <div class="post-loc">📍 Texas · 8 hours ago</div>
+          </div>
+          <button class="post-more">···</button>
+        </div>
+        <div class="post-photo ph-cattle">
+          <div class="post-photo-emoji">🐄</div>
+          <div class="post-photo-label">🌿 Pasture 3 — Rotational grazing day 1</div>
+        </div>
+        <div class="post-body">
+          <div class="post-text">Moved the herd to pasture 3 this morning. Grass height at 8 inches, perfect for our Angus. Soil moisture holding well despite the heat. Anyone using cover crops between rotations?</div>
+          <div class="post-tags"><span class="ptag">#livestock</span><span class="ptag">#grazing</span><span class="ptag">#texas</span></div>
+        </div>
+        <div class="post-actions">
+          <button class="paction" onclick="likePost(this)">👍 89</button>
+          <button class="paction" onclick="toast('💬 Comments coming soon')">💬 22</button>
+          <button class="paction" onclick="toast('🔗 Link copied!')">↗️ Share</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Learn Panel -->
-  <div class="tab-body panel" id="panel-learn">
-    <div class="section-pad">
-      <div class="section-title">📚 Learn & Grow</div>
-      <div class="category-row">
-        <button class="cat-chip active" onclick="selectCat(this)">All</button>
-        <button class="cat-chip" onclick="selectCat(this)">🌽 Crops</button>
-        <button class="cat-chip" onclick="selectCat(this)">🐄 Livestock</button>
-        <button class="cat-chip" onclick="selectCat(this)">💧 Water</button>
-        <button class="cat-chip" onclick="selectCat(this)">🌍 Soil</button>
-        <button class="cat-chip" onclick="selectCat(this)">💰 Business</button>
-        <button class="cat-chip" onclick="selectCat(this)">🌿 Organic</button>
-      </div>
-
-      <div class="featured-card">
-        <div class="featured-img">🌱</div>
-        <div class="featured-body">
-          <div class="featured-cat">⭐ Featured Guide</div>
-          <div class="featured-title">Complete Guide to Spring Planting 2026</div>
-          <div class="featured-desc">Everything you need to know about soil prep, seed selection, planting windows, and maximizing your yield this season.</div>
-          <button class="btn-green" onclick="showToast('📖 Opening guide...')">Read Guide →</button>
+  <!-- LEARN -->
+  <div class="tab-body panel tab-content" id="panel-learn">
+    <div class="learn-hero">
+      <h2>📚 Learn & Grow</h2>
+      <p>Expert guides, tutorials and courses for US farmers</p>
+      <div class="learn-search"><span>🔍</span><input placeholder="Search guides, courses..."></div>
+    </div>
+    <div class="cats">
+      <button class="cat active" onclick="selCat(this)">All</button>
+      <button class="cat" onclick="selCat(this)">🌽 Crops</button>
+      <button class="cat" onclick="selCat(this)">🐄 Livestock</button>
+      <button class="cat" onclick="selCat(this)">💧 Water</button>
+      <button class="cat" onclick="selCat(this)">🌍 Soil</button>
+      <button class="cat" onclick="selCat(this)">💰 Business</button>
+      <button class="cat" onclick="selCat(this)">🌿 Organic</button>
+    </div>
+    <div style="padding:10px 12px 6px">
+      <div class="featured-learn">
+        <div class="fl-img">
+          <div class="fl-img-emoji">🌱</div>
+          <div class="fl-img-label">⭐ Featured Guide</div>
+        </div>
+        <div class="fl-body">
+          <div class="fl-cat">Seasonal Guide</div>
+          <div class="fl-title">Complete Guide to Spring Planting 2026</div>
+          <div class="fl-desc">Soil prep, seed selection, planting windows and everything you need to maximize your yield this season.</div>
+          <button class="btn-green" onclick="toast('📖 Opening guide...')">Read Guide →</button>
         </div>
       </div>
+    </div>
+    <div class="learn-list">
+      <div class="learn-row" onclick="toast('📖 Opening...')"><div class="lr-icon g">💧</div><div class="lr-body"><div class="lr-cat">Water Management</div><div class="lr-title">Drip Irrigation Setup for Small Farms</div><div class="lr-meta"><span>⏱ 8 min</span><span>⭐ 4.9</span></div></div><div class="lr-arrow">›</div></div>
+      <div class="learn-row" onclick="toast('📖 Opening...')"><div class="lr-icon g">🌍</div><div class="lr-body"><div class="lr-cat">Soil Health</div><div class="lr-title">How to Test & Improve Soil pH Naturally</div><div class="lr-meta"><span>⏱ 12 min</span><span>⭐ 4.8</span></div></div><div class="lr-arrow">›</div></div>
+      <div class="learn-row" onclick="toast('📖 Opening...')"><div class="lr-icon o">🐛</div><div class="lr-body"><div class="lr-cat">Pest Control</div><div class="lr-title">Identifying & Treating Common Crop Pests</div><div class="lr-meta"><span>⏱ 15 min</span><span>⭐ 4.7</span></div></div><div class="lr-arrow">›</div></div>
+      <div class="learn-row" onclick="toast('📖 Opening...')"><div class="lr-icon o">💰</div><div class="lr-body"><div class="lr-cat">Farm Business</div><div class="lr-title">How to Apply for USDA Farm Loans: Step by Step</div><div class="lr-meta"><span>⏱ 20 min</span><span>⭐ 5.0</span></div></div><div class="lr-arrow">›</div></div>
+      <div class="learn-row" onclick="toast('📖 Opening...')"><div class="lr-icon g">🌿</div><div class="lr-body"><div class="lr-cat">Organic Farming</div><div class="lr-title">Transitioning Your Farm to Organic: Year 1</div><div class="lr-meta"><span>⏱ 18 min</span><span>⭐ 4.9</span></div></div><div class="lr-arrow">›</div></div>
+      <div class="learn-row" onclick="toast('📖 Opening...')"><div class="lr-icon b">🚜</div><div class="lr-body"><div class="lr-cat">Equipment</div><div class="lr-title">Tractor Maintenance Every Farmer Needs to Know</div><div class="lr-meta"><span>⏱ 10 min</span><span>⭐ 4.6</span></div></div><div class="lr-arrow">›</div></div>
+    </div>
+  </div>
 
-      <div class="section-title" style="font-size:16px">Quick Lessons</div>
-
-      <div class="learn-card" onclick="showToast('📖 Opening lesson...')">
-        <div class="learn-img">💧</div>
-        <div class="learn-body">
-          <div class="learn-cat">Water Management</div>
-          <div class="learn-title">Drip Irrigation Setup for Small Farms</div>
-          <div class="learn-meta"><span>⏱ 8 min read</span><span>⭐ 4.9</span></div>
-        </div>
+  <!-- RESOURCES -->
+  <div class="tab-body panel tab-content" id="panel-resources">
+    <div class="res-hero">
+      <h2>💰 Financial Resources</h2>
+      <p>Grants, loans & programs for US farmers</p>
+      <div class="res-search"><span>🔍</span><input placeholder="Search grants, loans, programs..."></div>
+    </div>
+    <div class="res-tabs">
+      <button class="rtab active" onclick="selRTab(this)">All</button>
+      <button class="rtab" onclick="selRTab(this)">🌾 Grants</button>
+      <button class="rtab" onclick="selRTab(this)">🏦 Loans</button>
+      <button class="rtab" onclick="selRTab(this)">📋 Programs</button>
+    </div>
+    <div class="res-list">
+      <div class="res-card">
+        <div class="rc-top"><div class="rc-icon g">🌾</div><div><div class="rc-title">Emergency Relief Program (ERP) 2025</div><div class="rc-agency">USDA — Farm Service Agency</div></div></div>
+        <div class="rc-amount">Up to $125,000</div>
+        <div class="rc-desc">Financial assistance for farmers and ranchers who suffered losses due to qualifying disasters including wildfires, drought, and flooding.</div>
+        <div class="rc-tags"><span class="rtag g">🌾 Grant</span><span class="rtag o">⚡ Urgent</span><span class="rtag b">🇺🇸 Federal</span></div>
+        <div class="rc-deadline">📅 Deadline: April 30, 2026</div>
+        <button class="apply-btn" onclick="toast('🔗 Opening USDA application...')">Apply Now →</button>
       </div>
-
-      <div class="learn-card" onclick="showToast('📖 Opening lesson...')">
-        <div class="learn-img">🌍</div>
-        <div class="learn-body">
-          <div class="learn-cat">Soil Health</div>
-          <div class="learn-title">How to Test and Improve Soil pH Naturally</div>
-          <div class="learn-meta"><span>⏱ 12 min read</span><span>⭐ 4.8</span></div>
-        </div>
+      <div class="res-card">
+        <div class="rc-top"><div class="rc-icon o">🏦</div><div><div class="rc-title">FSA Farm Operating Loan</div><div class="rc-agency">USDA — Farm Service Agency</div></div></div>
+        <div class="rc-amount">Up to $400,000</div>
+        <div class="rc-desc">Low-interest loans for family farmers covering operating expenses, livestock, equipment, seed, and other short-term needs. Priority for beginning farmers.</div>
+        <div class="rc-tags"><span class="rtag b">🏦 Loan</span><span class="rtag g">Low Interest</span></div>
+        <div class="rc-deadline">📅 Rolling applications</div>
+        <button class="apply-btn" onclick="toast('🔗 Opening FSA application...')">Apply Now →</button>
       </div>
-
-      <div class="learn-card" onclick="showToast('📖 Opening lesson...')">
-        <div class="learn-img">🐛</div>
-        <div class="learn-body">
-          <div class="learn-cat">Pest Control</div>
-          <div class="learn-title">Identifying & Treating Common Crop Pests</div>
-          <div class="learn-meta"><span>⏱ 15 min read</span><span>⭐ 4.7</span></div>
-        </div>
+      <div class="res-card">
+        <div class="rc-top"><div class="rc-icon g">🌱</div><div><div class="rc-title">Beginning Farmer & Rancher Development</div><div class="rc-agency">USDA — National Institute of Food & Agriculture</div></div></div>
+        <div class="rc-amount">Up to $250,000</div>
+        <div class="rc-desc">Grants for training, education, outreach and technical assistance for beginning farmers. Includes mentorship and land access support.</div>
+        <div class="rc-tags"><span class="rtag g">🌾 Grant</span><span class="rtag b">🎓 Education</span></div>
+        <div class="rc-deadline">📅 Deadline: May 15, 2026</div>
+        <button class="apply-btn" onclick="toast('🔗 Opening application...')">Apply Now →</button>
       </div>
-
-      <div class="learn-card" onclick="showToast('📖 Opening lesson...')">
-        <div class="learn-img">💰</div>
-        <div class="learn-body">
-          <div class="learn-cat">Farm Business</div>
-          <div class="learn-title">How to Apply for USDA Farm Loans: Step by Step</div>
-          <div class="learn-meta"><span>⏱ 20 min read</span><span>⭐ 5.0</span></div>
-        </div>
-      </div>
-
-      <div class="learn-card" onclick="showToast('📖 Opening lesson...')">
-        <div class="learn-img">🌿</div>
-        <div class="learn-body">
-          <div class="learn-cat">Organic Farming</div>
-          <div class="learn-title">Transitioning Your Farm to Organic: Year 1</div>
-          <div class="learn-meta"><span>⏱ 18 min read</span><span>⭐ 4.9</span></div>
-        </div>
-      </div>
-
-      <div class="learn-card" onclick="showToast('📖 Opening lesson...')">
-        <div class="learn-img">🚜</div>
-        <div class="learn-body">
-          <div class="learn-cat">Equipment</div>
-          <div class="learn-title">Tractor Maintenance Schedule Every Farmer Needs</div>
-          <div class="learn-meta"><span>⏱ 10 min read</span><span>⭐ 4.6</span></div>
-        </div>
+      <div class="res-card">
+        <div class="rc-top"><div class="rc-icon g">♻️</div><div><div class="rc-title">EQIP — Environmental Quality Incentives</div><div class="rc-agency">USDA — Natural Resources Conservation Service</div></div></div>
+        <div class="rc-amount">Up to $450,000 over 10 years</div>
+        <div class="rc-desc">Financial and technical assistance for irrigation efficiency, nutrient management, and conservation cover. One of the most funded USDA programs.</div>
+        <div class="rc-tags"><span class="rtag g">🌾 Grant</span><span class="rtag g">🌿 Conservation</span></div>
+        <div class="rc-deadline">📅 Continuous sign-up</div>
+        <button class="apply-btn" onclick="toast('🔗 Opening NRCS portal...')">Apply Now →</button>
       </div>
     </div>
   </div>
 
-  <!-- Resources Panel -->
-  <div class="tab-body panel" id="panel-resources">
-    <div class="resource-hero">
-      <div class="resource-hero-title">💰 Financial Resources</div>
-      <div class="resource-hero-sub">Grants, loans & programs for US farmers</div>
-      <div class="search-bar">
-        <span>🔍</span>
-        <input type="text" placeholder="Search grants, loans, programs..." style="background:none;border:none;outline:none;font-size:14px;font-family:Inter,sans-serif;width:100%">
+  <!-- MARKET -->
+  <div class="tab-body panel tab-content" id="panel-market">
+    <div class="market-top">
+      <div class="feed-hi" style="margin-bottom:12px">🛒 FarmMarket</div>
+      <div class="market-search"><span>🔍</span><input placeholder="Search produce, equipment, seeds..."></div>
+      <div class="filters">
+        <button class="fchip active" onclick="selFilter(this)">All</button>
+        <button class="fchip" onclick="selFilter(this)">🥕 Produce</button>
+        <button class="fchip" onclick="selFilter(this)">🚜 Equipment</button>
+        <button class="fchip" onclick="selFilter(this)">🌱 Seeds</button>
+        <button class="fchip" onclick="selFilter(this)">🐄 Livestock</button>
       </div>
     </div>
-
-    <div class="resource-tabs">
-      <button class="res-tab active" onclick="selResTab(this)">All</button>
-      <button class="res-tab" onclick="selResTab(this)">🌾 Grants</button>
-      <button class="res-tab" onclick="selResTab(this)">🏦 Loans</button>
-      <button class="res-tab" onclick="selResTab(this)">📋 Programs</button>
-    </div>
-
-    <div style="padding-bottom:12px">
-
-      <div class="resource-card">
-        <div class="res-card-header">
-          <div class="res-icon green">🌾</div>
-          <div class="res-meta">
-            <div class="res-title">Emergency Relief Program (ERP) 2025</div>
-            <div class="res-agency">USDA — Farm Service Agency</div>
-          </div>
-        </div>
-        <div class="res-amount">Up to $125,000</div>
-        <div class="res-desc">Financial assistance to eligible farmers and ranchers who suffered losses due to qualifying emergency events including wildfires, drought, flooding, and other natural disasters.</div>
-        <div class="res-tags">
-          <span class="res-tag green">🌾 Grant</span>
-          <span class="res-tag gold">⚡ Urgent</span>
-          <span class="res-tag sky">🇺🇸 Federal</span>
-        </div>
-        <div class="deadline-row">📅 Deadline: April 30, 2026</div>
-        <button class="apply-btn" onclick="showToast('🔗 Opening USDA application...')">Apply Now →</button>
-      </div>
-
-      <div class="resource-card" style="margin-top:12px">
-        <div class="res-card-header">
-          <div class="res-icon gold">🏦</div>
-          <div class="res-meta">
-            <div class="res-title">FSA Farm Operating Loan</div>
-            <div class="res-agency">USDA — Farm Service Agency</div>
-          </div>
-        </div>
-        <div class="res-amount">Up to $400,000</div>
-        <div class="res-desc">Low-interest loans for family farmers to cover operating expenses, livestock, farm equipment, seed, feed, and other short-term needs. Priority given to beginning farmers.</div>
-        <div class="res-tags">
-          <span class="res-tag sky">🏦 Loan</span>
-          <span class="res-tag green">Low Interest</span>
-        </div>
-        <div class="deadline-row">📅 Rolling applications</div>
-        <button class="apply-btn" onclick="showToast('🔗 Opening FSA application...')">Apply Now →</button>
-      </div>
-
-      <div class="resource-card" style="margin-top:12px">
-        <div class="res-card-header">
-          <div class="res-icon green">🌱</div>
-          <div class="res-meta">
-            <div class="res-title">Beginning Farmer & Rancher Development</div>
-            <div class="res-agency">USDA — National Institute of Food & Agriculture</div>
-          </div>
-        </div>
-        <div class="res-amount">Up to $250,000</div>
-        <div class="res-desc">Grants to support training, education, outreach and technical assistance for beginning farmers and ranchers. Includes mentorship programs and land access support.</div>
-        <div class="res-tags">
-          <span class="res-tag green">🌾 Grant</span>
-          <span class="res-tag sky">🎓 Education</span>
-        </div>
-        <div class="deadline-row">📅 Deadline: May 15, 2026</div>
-        <button class="apply-btn" onclick="showToast('🔗 Opening NIFA application...')">Apply Now →</button>
-      </div>
-
-      <div class="resource-card" style="margin-top:12px">
-        <div class="res-card-header">
-          <div class="res-icon sky">☔</div>
-          <div class="res-meta">
-            <div class="res-title">Crop Insurance — MPCI Program</div>
-            <div class="res-agency">USDA — Risk Management Agency</div>
-          </div>
-        </div>
-        <div class="res-amount">Protects up to 85% of crop value</div>
-        <div class="res-desc">Multi-Peril Crop Insurance protects against natural disasters including drought, excessive moisture, hail, wind, frost, and plant disease. Subsidized premiums available.</div>
-        <div class="res-tags">
-          <span class="res-tag sky">📋 Insurance</span>
-          <span class="res-tag green">Subsidized</span>
-        </div>
-        <div class="deadline-row">📅 Sign-up: March 15 cutoff for most crops</div>
-        <button class="apply-btn" onclick="showToast('🔗 Opening RMA portal...')">Learn More →</button>
-      </div>
-
-      <div class="resource-card" style="margin-top:12px">
-        <div class="res-card-header">
-          <div class="res-icon green">♻️</div>
-          <div class="res-meta">
-            <div class="res-title">EQIP — Environmental Quality Incentives</div>
-            <div class="res-agency">USDA — Natural Resources Conservation Service</div>
-          </div>
-        </div>
-        <div class="res-amount">Up to $450,000 over 10 years</div>
-        <div class="res-desc">Financial and technical assistance for conservation practices including irrigation efficiency, nutrient management, and conservation cover. One of the most funded USDA programs.</div>
-        <div class="res-tags">
-          <span class="res-tag green">🌾 Grant</span>
-          <span class="res-tag green">🌿 Conservation</span>
-        </div>
-        <div class="deadline-row">📅 Continuous sign-up</div>
-        <button class="apply-btn" onclick="showToast('🔗 Opening NRCS portal...')">Apply Now →</button>
-      </div>
-
+    <div class="mgrid">
+      <div class="mcard"><div class="mcard-img mc-img-tomato"><div class="mcard-badge">🌿 Organic</div>🍅</div><div class="mcard-body"><div class="mcard-title">Heirloom Tomatoes</div><div class="mcard-seller">📍 Green Valley, CA</div><div class="mcard-bottom"><div class="mcard-price">$4.50/lb</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-corn">🌽</div><div class="mcard-body"><div class="mcard-title">Sweet Corn</div><div class="mcard-seller">📍 Brewer Farms, IA</div><div class="mcard-bottom"><div class="mcard-price">$0.75/ear</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-sun">🌻</div><div class="mcard-body"><div class="mcard-title">Sunflower Seeds</div><div class="mcard-seller">📍 SunFields, KS</div><div class="mcard-bottom"><div class="mcard-price">$12/kg</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-egg">🥚</div><div class="mcard-body"><div class="mcard-title">Free Range Eggs</div><div class="mcard-seller">📍 HillTop Ranch, TX</div><div class="mcard-bottom"><div class="mcard-price">$6/doz</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-tractor">🚜</div><div class="mcard-body"><div class="mcard-title">Tractor Rental</div><div class="mcard-seller">📍 Midwest Equip, IL</div><div class="mcard-bottom"><div class="mcard-price">$180/day</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-honey">🍯</div><div class="mcard-body"><div class="mcard-title">Raw Wildflower Honey</div><div class="mcard-seller">📍 BeeHaven, TN</div><div class="mcard-bottom"><div class="mcard-price">$18/jar</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-kale"><div class="mcard-badge">🌿 Organic</div>🥬</div><div class="mcard-body"><div class="mcard-title">Organic Kale Mix</div><div class="mcard-seller">📍 Pure Roots, OR</div><div class="mcard-bottom"><div class="mcard-price">$3.25/bunch</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
+      <div class="mcard"><div class="mcard-img mc-img-seed">🌱</div><div class="mcard-body"><div class="mcard-title">Cover Crop Seed Mix</div><div class="mcard-seller">📍 SeedWorks, NE</div><div class="mcard-bottom"><div class="mcard-price">$45/50lb</div><button class="add-btn" onclick="toast('🛒 Added!')">+</button></div></div></div>
     </div>
   </div>
 
-  <!-- Market Panel -->
-  <div class="tab-body panel" id="panel-market">
-    <div class="market-header">
-      <div class="section-title">🛒 FarmMarket</div>
-      <div class="market-search">
-        <span>🔍</span>
-        <input type="text" placeholder="Search produce, equipment, seeds...">
-      </div>
-      <div class="filter-row">
-        <button class="filter-chip active" onclick="selFilter(this)">All</button>
-        <button class="filter-chip" onclick="selFilter(this)">🥕 Produce</button>
-        <button class="filter-chip" onclick="selFilter(this)">🚜 Equipment</button>
-        <button class="filter-chip" onclick="selFilter(this)">🌱 Seeds</button>
-        <button class="filter-chip" onclick="selFilter(this)">🐄 Livestock</button>
-        <button class="filter-chip" onclick="selFilter(this)">🌿 Organic</button>
+  <!-- PROFILE -->
+  <div class="tab-body panel tab-content" id="panel-profile">
+    <div class="prof-hero">
+      <div class="prof-av">🧑‍🌾</div>
+      <div class="prof-name">John C.</div>
+      <div class="prof-loc">📍 Pittsburgh, PA · Member since 2026</div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="pstat-n">0</div><div class="pstat-l">Posts</div></div>
+        <div class="pstat"><div class="pstat-n">0</div><div class="pstat-l">Following</div></div>
+        <div class="pstat"><div class="pstat-n">0</div><div class="pstat-l">Followers</div></div>
+        <div class="pstat"><div class="pstat-n">$0</div><div class="pstat-l">Grants</div></div>
       </div>
     </div>
-
-    <div class="market-grid">
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🍅</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Heirloom Tomatoes</div>
-          <div class="market-item-seller">📍 Green Valley Farm, CA</div>
-          <div class="market-price-row">
-            <div class="market-price">$4.50/lb</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
+    <div class="prof-body">
+      <div class="feed-sub" style="margin-bottom:10px">🏅 Badges</div>
+      <div class="prof-badges">
+        <div class="pbadge"><div class="pbadge-icon">🌱</div><div><div class="pbadge-name">New Farmer</div><div class="pbadge-sub">Just getting started</div></div></div>
+        <div class="pbadge"><div class="pbadge-icon">🤝</div><div><div class="pbadge-name">Connected</div><div class="pbadge-sub">Joined community</div></div></div>
       </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🌽</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Sweet Corn</div>
-          <div class="market-item-seller">📍 Brewer Farms, IA</div>
-          <div class="market-price-row">
-            <div class="market-price">$0.75/ear</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🌻</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Sunflower Seeds</div>
-          <div class="market-item-seller">📍 SunFields, KS</div>
-          <div class="market-price-row">
-            <div class="market-price">$12.00/kg</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🥚</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Free Range Eggs</div>
-          <div class="market-item-seller">📍 HillTop Ranch, TX</div>
-          <div class="market-price-row">
-            <div class="market-price">$6.00/doz</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🚜</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Tractor Rental</div>
-          <div class="market-item-seller">📍 Midwest Equipment, IL</div>
-          <div class="market-price-row">
-            <div class="market-price">$180/day</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🍯</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Raw Wildflower Honey</div>
-          <div class="market-item-seller">📍 BeeHaven, TN</div>
-          <div class="market-price-row">
-            <div class="market-price">$18.00/jar</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🥬</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Organic Kale Mix</div>
-          <div class="market-item-seller">📍 Pure Roots, OR</div>
-          <div class="market-price-row">
-            <div class="market-price">$3.25/bunch</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="market-item" onclick="showToast('🛒 Added to cart!')">
-        <div class="market-item-img">🌱</div>
-        <div class="market-item-body">
-          <div class="market-item-title">Cover Crop Seed Mix</div>
-          <div class="market-item-seller">📍 SeedWorks, NE</div>
-          <div class="market-price-row">
-            <div class="market-price">$45.00/50lb</div>
-            <button class="cart-btn">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Profile Panel -->
-  <div class="tab-body panel" id="panel-profile">
-    <div class="profile-header">
-      <div class="profile-avatar">🧑‍🌾</div>
-      <div class="profile-name">John C.</div>
-      <div class="profile-location">📍 Pittsburgh, PA · Member since 2026</div>
-      <div class="profile-stats">
-        <div class="p-stat"><div class="p-stat-num">0</div><div class="p-stat-label">Posts</div></div>
-        <div class="p-stat"><div class="p-stat-num">0</div><div class="p-stat-label">Following</div></div>
-        <div class="p-stat"><div class="p-stat-num">0</div><div class="p-stat-label">Followers</div></div>
-        <div class="p-stat"><div class="p-stat-num">$0</div><div class="p-stat-label">Grants Found</div></div>
-      </div>
-    </div>
-
-    <div class="profile-section">
-      <div class="section-title" style="font-size:16px">🏅 Your Badges</div>
-      <div class="badge-row">
-        <div class="farm-badge">
-          <div class="fb-icon">🌱</div>
-          <div><div class="fb-label">New Farmer</div><div class="fb-sub">Just getting started</div></div>
-        </div>
-        <div class="farm-badge">
-          <div class="fb-icon">🤝</div>
-          <div><div class="fb-label">Connected</div><div class="fb-sub">Joined community</div></div>
-        </div>
-      </div>
-
-      <div class="section-title" style="font-size:16px;margin-top:8px">My Account</div>
-      <div class="profile-menu-item" onclick="showToast('🌾 Farm profile coming soon')">
-        <div class="pmi-icon">🌾</div>
-        <div class="pmi-text">My Farm Profile</div>
-        <div class="pmi-arrow">›</div>
-      </div>
-      <div class="profile-menu-item" onclick="showToast('🔖 Saved items coming soon')">
-        <div class="pmi-icon">🔖</div>
-        <div class="pmi-text">Saved Resources</div>
-        <div class="pmi-arrow">›</div>
-      </div>
-      <div class="profile-menu-item" onclick="showToast('📊 Analytics coming soon')">
-        <div class="pmi-icon">📊</div>
-        <div class="pmi-text">Farm Analytics</div>
-        <div class="pmi-arrow">›</div>
-      </div>
-      <div class="profile-menu-item" onclick="showToast('🔔 Notifications')">
-        <div class="pmi-icon">🔔</div>
-        <div class="pmi-text">Notifications</div>
-        <div class="pmi-arrow">›</div>
-      </div>
-      <div class="profile-menu-item" onclick="showToast('⚙️ Settings coming soon')">
-        <div class="pmi-icon">⚙️</div>
-        <div class="pmi-text">Settings</div>
-        <div class="pmi-arrow">›</div>
-      </div>
-      <div class="profile-menu-item" onclick="showToast('ℹ️ About FarmRoot')">
-        <div class="pmi-icon">ℹ️</div>
-        <div class="pmi-text">About FarmRoot</div>
-        <div class="pmi-arrow">›</div>
+      <div class="pmenu">
+        <div class="pmenu-item" onclick="toast('🌾 Farm profile coming soon')"><div class="pmi-icon">🌾</div><div class="pmi-label">My Farm Profile</div><div class="pmi-arrow">›</div></div>
+        <div class="pmenu-item" onclick="toast('🔖 Saved items coming soon')"><div class="pmi-icon">🔖</div><div class="pmi-label">Saved Resources</div><div class="pmi-arrow">›</div></div>
+        <div class="pmenu-item" onclick="toast('📊 Analytics coming soon')"><div class="pmi-icon">📊</div><div class="pmi-label">Farm Analytics</div><div class="pmi-arrow">›</div></div>
+        <div class="pmenu-item" onclick="toast('🔔 Notifications')"><div class="pmi-icon">🔔</div><div class="pmi-label">Notifications</div><div class="pmi-arrow">›</div></div>
+        <div class="pmenu-item" onclick="toast('⚙️ Settings coming soon')"><div class="pmi-icon">⚙️</div><div class="pmi-label">Settings</div><div class="pmi-arrow">›</div></div>
       </div>
     </div>
   </div>
 
   <!-- Tab Bar -->
   <div class="tab-bar">
-    <button class="tab-btn active" id="tabBtn-feed" onclick="switchTab('feed')">
-      <span class="ti">🏡</span><span class="tl">Feed</span>
-    </button>
-    <button class="tab-btn" id="tabBtn-learn" onclick="switchTab('learn')">
-      <span class="ti">📚</span><span class="tl">Learn</span>
-    </button>
-    <button class="tab-btn" id="tabBtn-resources" onclick="switchTab('resources')">
-      <span class="ti">💰</span><span class="tl">Resources</span>
-    </button>
-    <button class="tab-btn" id="tabBtn-market" onclick="switchTab('market')">
-      <span class="ti">🛒</span><span class="tl">Market</span>
-    </button>
-    <button class="tab-btn" id="tabBtn-profile" onclick="switchTab('profile')">
-      <span class="ti">👤</span><span class="tl">Profile</span>
-    </button>
+    <button class="tab-btn active" id="tb-feed" onclick="switchTab('feed')"><span class="ti">🏡</span><span class="tl">Feed</span></button>
+    <button class="tab-btn" id="tb-learn" onclick="switchTab('learn')"><span class="ti">📚</span><span class="tl">Learn</span></button>
+    <button class="tab-btn" id="tb-resources" onclick="switchTab('resources')"><span class="ti">💰</span><span class="tl">Resources</span></button>
+    <button class="tab-btn" id="tb-market" onclick="switchTab('market')"><span class="ti">🛒</span><span class="tl">Market</span></button>
+    <button class="tab-btn" id="tb-profile" onclick="switchTab('profile')"><span class="ti">👤</span><span class="tl">Profile</span></button>
   </div>
+
 </div>
 
 <script>
@@ -793,87 +589,40 @@ function enterApp() {
   document.getElementById('screen-onboard').classList.remove('active');
   document.getElementById('screen-app').classList.add('active');
 }
-
-function switchTab(tab) {
-  ['feed','learn','resources','market','profile'].forEach(t => {
-    document.getElementById('panel-'+t).classList.remove('active');
-    document.getElementById('tabBtn-'+t)?.classList.remove('active');
+function switchTab(t) {
+  ['feed','learn','resources','market','profile'].forEach(n => {
+    document.getElementById('panel-'+n).classList.remove('active');
+    document.getElementById('tb-'+n).classList.remove('active');
   });
-  document.getElementById('panel-'+tab).classList.add('active');
-  document.getElementById('tabBtn-'+tab)?.classList.add('active');
+  document.getElementById('panel-'+t).classList.add('active');
+  document.getElementById('tb-'+t).classList.add('active');
 }
-
-function selectCat(btn) {
-  document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  showToast('📚 Filtering by ' + btn.textContent);
-}
-
-function selResTab(btn) {
-  document.querySelectorAll('.res-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function selFilter(btn) {
-  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  showToast('🛒 Filtering by ' + btn.textContent);
-}
-
+function selCat(b) { document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }
+function selRTab(b) { document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }
+function selFilter(b) { document.querySelectorAll('.fchip').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }
 function likePost(btn) {
-  const wasLiked = btn.classList.contains('liked');
-  const parts = btn.textContent.trim().split(' ');
-  const num = parseInt(parts[1]) || 0;
-  if (wasLiked) {
-    btn.classList.remove('liked');
-    btn.textContent = '👍 ' + (num - 1);
-  } else {
-    btn.classList.add('liked');
-    btn.textContent = '❤️ ' + (num + 1);
-  }
+  const liked = btn.classList.contains('liked');
+  const n = parseInt(btn.textContent.replace(/\D/g,''))||0;
+  btn.classList.toggle('liked');
+  btn.textContent = (liked ? '👍 ' : '❤️ ') + (liked ? n-1 : n+1);
 }
-
 function submitPost() {
   const input = document.getElementById('compose-input');
   const text = input.value.trim();
-  if (!text) { showToast('✍️ Write something first!'); return; }
+  if (!text) { toast('✍️ Write something first!'); return; }
   const div = document.createElement('div');
-  div.className = 'post-card slide-up';
-  div.innerHTML = `
-    <div class="post-header">
-      <div class="post-avatar">🧑‍🌾</div>
-      <div class="post-meta">
-        <div class="post-name">John C.</div>
-        <div class="post-location">📍 Pittsburgh, PA · Just now</div>
-      </div>
-    </div>
-    <div class="post-body">
-      <div class="post-text">${text}</div>
-    </div>
-    <div class="post-actions">
-      <button class="post-action" onclick="likePost(this)">👍 0</button>
-      <button class="post-action" onclick="showToast('💬 Comments coming soon')">💬 0</button>
-      <button class="post-action" onclick="showToast('🔗 Link copied!')">↗️ Share</button>
-    </div>
-  `;
-  const list = document.getElementById('post-list');
-  list.insertBefore(div, list.firstChild);
+  div.className = 'post';
+  div.innerHTML = `<div class="post-head"><div class="post-av">🧑‍🌾</div><div class="post-info"><div class="post-name">John C.</div><div class="post-loc">📍 Pittsburgh, PA · Just now</div></div></div><div class="post-body" style="padding-top:10px"><div class="post-text">${text}</div></div><div class="post-actions"><button class="paction" onclick="likePost(this)">👍 0</button><button class="paction">💬 0</button><button class="paction" onclick="toast('🔗 Copied!')">↗️ Share</button></div>`;
+  document.getElementById('post-list').prepend(div);
   input.value = '';
-  showToast('✅ Post shared with the community!');
+  toast('✅ Posted to the community!');
 }
-
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-// Register service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sticker-quest/sw.js').catch(()=>{});
+let toastT;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 2500);
 }
 </script>
 </body>
